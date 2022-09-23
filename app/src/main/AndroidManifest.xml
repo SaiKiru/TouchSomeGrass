@@ -14,7 +14,8 @@
         android:theme="@style/Theme.TouchSomeGrass"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.OnboardingActivity"
+            android:label="Welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +23,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.LoginActivity"
+            android:label="Login"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SignUpActivity"
+            android:label="Sign Up"
+            android:exported="false" />
+        <activity
+            android:name=".activities.HomeActivity"
+            android:label="Home"
+            android:exported="false" />
     </application>
 
 </manifest>
