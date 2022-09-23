@@ -1,4 +1,4 @@
-package com.uc_bcf.edu.ph.touchsomegrass
+package com.grassyass.touchsomegrass
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
