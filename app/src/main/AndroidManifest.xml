@@ -15,7 +15,7 @@
         tools:targetApi="31">
         <activity
             android:name=".activities.OnboardingActivity"
-            android:label="Welcome"
+            android:label="@string/activity_onboarding_label"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,31 +25,31 @@
         </activity>
         <activity
             android:name=".activities.LoginActivity"
-            android:label="Login"
+            android:label="@string/activity_login_label"
             android:exported="false" />
         <activity
             android:name=".activities.SignUpActivity"
-            android:label="Sign Up"
+            android:label="@string/activity_sign_up_label"
             android:exported="false" />
         <activity
             android:name=".activities.HomeActivity"
-            android:label="Home"
+            android:label="@string/activity_home_label"
             android:exported="false" />
         <activity
             android:name=".activities.WorkoutsActivity"
-            android:label="Your Workouts"
+            android:label="@string/activity_workouts_label"
             android:exported="false" />
         <activity
             android:name=".activities.WorkoutSettingsActivity"
-            android:label="Edit Workout"
+            android:label="@string/activity_workout_settings_label"
             android:exported="false" />
         <activity
             android:name=".activities.ProfileActivity"
-            android:label="Profile"
+            android:label="@string/activity_profile_label"
             android:exported="false" />
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="Settings"
+            android:label="@string/activity_settings_label"
             android:exported="false" />
     </application>
 
