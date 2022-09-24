@@ -35,6 +35,22 @@
             android:name=".activities.HomeActivity"
             android:label="Home"
             android:exported="false" />
+        <activity
+            android:name=".activities.WorkoutsActivity"
+            android:label="Your Workouts"
+            android:exported="false" />
+        <activity
+            android:name=".activities.WorkoutSettingsActivity"
+            android:label="Edit Workout"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:label="Profile"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="Settings"
+            android:exported="false" />
     </application>
 
 </manifest>
