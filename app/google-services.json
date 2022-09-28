@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "275296298567",
+    "project_id": "touch-some-grass",
+    "storage_bucket": "touch-some-grass.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275296298567:android:2171beeecd671171f3b362",
+        "android_client_info": {
+          "package_name": "com.grassyass.touchsomegrass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "275296298567-ot7eoa66ts8ahi9jqsa50p2m8qn704uu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3m9dOwK9YlQy-OZSOa7InOt4r9mqoHOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "275296298567-ot7eoa66ts8ahi9jqsa50p2m8qn704uu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
