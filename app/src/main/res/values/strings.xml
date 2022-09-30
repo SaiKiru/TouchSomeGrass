@@ -6,9 +6,7 @@
     <string name="activity_onboarding_label">Welcome!</string>
     <string name="activity_login_label">Login</string>
     <string name="activity_sign_up_label">Sign Up</string>
-    <string name="activity_home_label">Home</string>
-    <string name="activity_workouts_label">Your Workouts</string>
+    <string name="activity_main_label">Main</string>
     <string name="activity_workout_settings_label">Edit Workout</string>
-    <string name="activity_profile_label">Profile</string>
     <string name="activity_settings_label">Settings</string>
 </resources>

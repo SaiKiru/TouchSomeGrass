@@ -15,8 +15,8 @@
         tools:targetApi="31">
         <activity
             android:name=".activities.OnboardingActivity"
-            android:label="@string/activity_onboarding_label"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/activity_onboarding_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,32 +25,25 @@
         </activity>
         <activity
             android:name=".activities.LoginActivity"
-            android:label="@string/activity_login_label"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/activity_login_label" />
         <activity
             android:name=".activities.SignUpActivity"
-            android:label="@string/activity_sign_up_label"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/activity_sign_up_label" />
         <activity
-            android:name=".activities.HomeActivity"
-            android:label="@string/activity_home_label"
-            android:exported="false" />
-        <activity
-            android:name=".activities.WorkoutsActivity"
-            android:label="@string/activity_workouts_label"
-            android:exported="false" />
+            android:name=".activities.MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TouchSomeGrass.NoActionBar"
+            android:label="@string/activity_main_label" />
         <activity
             android:name=".activities.WorkoutSettingsActivity"
-            android:label="@string/activity_workout_settings_label"
-            android:exported="false" />
-        <activity
-            android:name=".activities.ProfileActivity"
-            android:label="@string/activity_profile_label"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/activity_workout_settings_label" />
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/activity_settings_label"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/activity_settings_label" />
     </application>
 
 </manifest>
