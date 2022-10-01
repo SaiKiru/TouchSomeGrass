@@ -1,0 +1,36 @@
+@startjson
+
+{
+    "users": {
+        "userUID": {
+            "name": "String",
+            "exp": "int",
+            "lvl": "int",
+            "title": "String",
+            "height": "int",
+            "weight": "int",
+            "birthDate": "Date"
+        }
+    },
+    "exercises": {
+        "userUID": {
+            "exerciseUID": {
+                "type": "String",
+                "name": "String"
+            }
+        }
+    },
+    "exerciseSessions": {
+        "userUID": {
+            "exerciseUID": {
+                "sessionUID": {
+                    "startDate": "DateTime",
+                    "endDate": "DateTime",
+                    "data": "Any"
+                }
+            }
+        }
+    }
+}
+
+@endjson

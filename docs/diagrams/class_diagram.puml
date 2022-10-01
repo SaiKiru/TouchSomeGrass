@@ -1,0 +1,88 @@
+@startuml
+/'
+This document describes the classes used in the app. It may not reflect the DAOs and
+objects used for syncing with the Firebase Realtime Database
+'/
+
+skinparam linetype ortho
+
+'RELATIONS =========================================================================================
+
+Whitelist -- App : contains
+Exercise - ExerciseSession
+
+User -- Exercise : has
+User - Whitelist : sets
+
+class DurationExercise extends Exercise
+class StepExercise extends Exercise
+class AerobicExercise extends Exercise
+
+'CLASS DEFINITIONS =================================================================================
+
+class User {
+    + name: String
+    + exp: int
+    + height: int
+    + weight: int
+    + birthDate: Date
+
+    + getLvl(): int
+    + getTitle(): String
+    + getAge(): int
+}
+
+class Whitelist {
+
+    + addApp(App)
+    + removeApp(App)
+}
+
+class App {
+    - name: String
+    - packageName: String
+    - iconPath: Resource
+    - category: Package.Category
+}
+
+class Exercise {
+    + name: String,
+    + type: ExerciseType
+}
+
+class DurationExercise {
+    + duration: Time
+
+    + startTimer()
+    + pauseTimer()
+    + restartTimer()
+}
+
+class StepExercise {
+    + target: int
+
+    + increment()
+    + reset()
+}
+
+class AerobicExercise {
+    + target: int
+
+    + increment()
+    + reset()
+}
+
+class ExerciseSession {
+    + startTime: DateTime
+    + endTime: DateTime
+    + data: Any
+}
+
+'INTERFACE DEFINITIONS =============================================================================
+interface ExerciseType {
+    DURATION,
+    STEP,
+    AEROBIC
+}
+
+@enduml
