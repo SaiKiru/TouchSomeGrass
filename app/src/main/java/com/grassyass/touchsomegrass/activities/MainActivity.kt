@@ -32,14 +32,14 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation = findViewById(R.id.bottom_navigation)
 
         homeScreen = HomeFragment()
-        profileScreen = ProfileFragment()
         workoutsScreen = WorkoutsFragment()
+        profileScreen = ProfileFragment()
 
         bottomNavigation.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.nav_item_home_screen -> { changeScreen(homeScreen) }
-                R.id.nav_item_workouts_screen -> { changeScreen(profileScreen) }
-                R.id.nav_item_profile_screen -> { changeScreen(workoutsScreen) }
+                R.id.nav_item_workouts_screen -> { changeScreen(workoutsScreen) }
+                R.id.nav_item_profile_screen -> { changeScreen(profileScreen) }
                 else -> false
             }
         }
