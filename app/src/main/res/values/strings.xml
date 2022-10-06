@@ -7,6 +7,6 @@
     <string name="activity_login_label">Login</string>
     <string name="activity_sign_up_label">Sign Up</string>
     <string name="activity_main_label">Main</string>
-    <string name="activity_workout_settings_label">Edit Workout</string>
+    <string name="activity_exercise_settings_label">Edit Exercise</string>
     <string name="activity_settings_label">Settings</string>
 </resources>
