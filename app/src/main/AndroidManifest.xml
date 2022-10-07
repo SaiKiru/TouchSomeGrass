@@ -34,8 +34,12 @@
         <activity
             android:name=".activities.MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.TouchSomeGrass.NoActionBar"
-            android:label="@string/activity_main_label" />
+            android:label="@string/activity_main_label"
+            android:theme="@style/Theme.TouchSomeGrass.NoActionBar" />
+        <activity
+            android:name=".activities.NewExerciseActivity"
+            android:exported="false"
+            android:label="@string/activity_new_exercise_label" />
         <activity
             android:name=".activities.ExerciseSettingsActivity"
             android:exported="false"
