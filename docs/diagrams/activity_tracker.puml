@@ -1,0 +1,29 @@
+@startuml
+
+autonumber
+
+actor User
+participant App
+participant ActivityObserver
+participant Whitelist
+participant ActivityTracker
+participant AppLockService
+participant ExerciseTrackerService
+
+User -> App : opens app
+User -> ActivityObserver ++ : appOpened()
+
+ActivityObserver -> Whitelist ++ : is app\nincluded?
+ActivityObserver <-- Whitelist -- : false
+
+ActivityObserver -> ActivityTracker ++ : should exercise?
+ActivityTracker --> AppLockService ** : true
+activate AppLockService
+ActivityObserver <-- ActivityTracker -- : false
+deactivate ActivityObserver
+
+AppLockService -> ExerciseTrackerService ** : create\ntracker
+activate ExerciseTrackerService
+AppLockService -> User : show app lock screen
+
+@enduml
