@@ -3,7 +3,6 @@
     <string name="app_name">Touch Some Grass</string>
 
     <!-- Activity Labels -->
-    <string name="activity_onboarding_label">Welcome!</string>
     <string name="activity_login_label">Login</string>
     <string name="activity_sign_up_label">Sign Up</string>
     <string name="activity_main_label">Main</string>
