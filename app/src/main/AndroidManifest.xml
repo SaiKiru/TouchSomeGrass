@@ -15,7 +15,8 @@
         <activity
             android:name=".activities.OnboardingActivity"
             android:exported="true"
-            android:theme="@style/Theme.TouchSomeGrass.NoActionBar" >
+            android:theme="@style/Theme.TouchSomeGrass.NoActionBar"
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
