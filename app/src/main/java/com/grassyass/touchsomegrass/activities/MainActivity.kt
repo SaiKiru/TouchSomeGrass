@@ -22,10 +22,14 @@ class MainActivity : AppCompatActivity() {
         initializeUI()
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
 
-        changeScreen(homeScreen)
+        when(bottomNavigation.selectedItemId) {
+            R.id.nav_item_exercises_screen -> { changeScreen(exercisesScreen) }
+            R.id.nav_item_profile_screen -> { changeScreen(profileScreen) }
+            else -> { changeScreen(homeScreen) }
+        }
     }
 
     private fun initializeUI() {
