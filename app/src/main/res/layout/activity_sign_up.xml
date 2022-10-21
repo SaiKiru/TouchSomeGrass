@@ -6,4 +6,105 @@
     android:layout_height="match_parent"
     tools:context=".activities.SignUpActivity">
 
+    <TextView
+        android:id="@+id/activity_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/archivo_semibold"
+        android:text="Create an account"
+        android:textColor="@color/primary_700"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/email_input_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:fontFamily="@font/raleway"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="12sp"
+        android:paddingRight="12sp"
+        android:textColor="@color/neutral_400"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_hint" />
+
+    <EditText
+        android:id="@+id/password_input_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:fontFamily="@font/raleway"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="12sp"
+        android:paddingRight="12sp"
+        android:textColor="@color/neutral_400"
+        app:layout_constraintEnd_toEndOf="@+id/email_input_field"
+        app:layout_constraintStart_toStartOf="@+id/email_input_field"
+        app:layout_constraintTop_toBottomOf="@+id/email_input_field" />
+
+    <EditText
+        android:id="@+id/confirm_password_input_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:fontFamily="@font/raleway"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:paddingLeft="12sp"
+        android:paddingRight="12sp"
+        android:textColor="@color/neutral_400"
+        app:layout_constraintEnd_toEndOf="@+id/password_input_field"
+        app:layout_constraintStart_toStartOf="@+id/password_input_field"
+        app:layout_constraintTop_toBottomOf="@+id/password_input_field" />
+
+    <Button
+        android:id="@+id/sign_up_button"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="24dp"
+        android:text="Sign Up"
+        android:textSize="20sp"
+        app:cornerRadius="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirm_password_input_field" />
+
+    <TextView
+        android:id="@+id/with_account_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/raleway"
+        android:text="Already have an account?"
+        android:textColor="@color/neutral_600"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_button" />
+
+    <TextView
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:fontFamily="@font/raleway_bold"
+        android:text="Log In"
+        android:textColor="@color/primary_700"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/with_account_hint"
+        app:layout_constraintStart_toEndOf="@+id/with_account_hint" />
 </androidx.constraintlayout.widget.ConstraintLayout>
