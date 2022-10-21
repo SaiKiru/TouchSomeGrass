@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import com.grassyass.touchsomegrass.R
+import com.grassyass.touchsomegrass.models.Exercise
 
 class NewExerciseActivity : AppCompatActivity() {
     private lateinit var exerciseNameField: EditText
@@ -26,10 +27,12 @@ class NewExerciseActivity : AppCompatActivity() {
 
         if (exerciseName == "") return
 
-        val intent = Intent()
-        intent.putExtra("Message", exerciseName)
+        val exercise = Exercise(name = exerciseName)
 
-        setResult(0, intent)
+        val intent = Intent()
+        intent.putExtra(getString(R.string.extra_new_exercise), exercise)
+
+        setResult(RESULT_OK, intent)
         finish()
     }
 }

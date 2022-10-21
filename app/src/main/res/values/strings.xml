@@ -9,4 +9,7 @@
     <string name="activity_new_exercise_label">Create Exercise</string>
     <string name="activity_exercise_settings_label">Edit Exercise</string>
     <string name="activity_settings_label">Settings</string>
+    
+    <!-- Extras -->
+    <string name="extra_new_exercise">com.grassyass.touchsomegrass.extra.NEW_EXERCISE</string>
 </resources>
