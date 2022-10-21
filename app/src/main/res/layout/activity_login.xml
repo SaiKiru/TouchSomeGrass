@@ -14,6 +14,7 @@
         android:layout_marginTop="72dp"
         android:fontFamily="@font/archivo_semibold"
         android:text="Welcome Back!"
+        android:textColor="@color/primary_700"
         android:textSize="40sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,6 +26,7 @@
         android:layout_marginTop="12dp"
         android:fontFamily="@font/raleway"
         android:text="Login to your account"
+        android:textColor="@color/primary_700"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/welcome_text"
         app:layout_constraintTop_toBottomOf="@+id/welcome_text" />
@@ -42,6 +44,7 @@
         android:inputType="textEmailAddress"
         android:paddingLeft="12sp"
         android:paddingRight="12sp"
+        android:textColor="@color/neutral_400"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +62,7 @@
         android:inputType="textPassword"
         android:paddingLeft="12sp"
         android:paddingRight="12sp"
+        android:textColor="@color/neutral_400"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/email_input_field"
         app:layout_constraintTop_toBottomOf="@+id/email_input_field" />
@@ -87,6 +91,7 @@
         android:layout_marginTop="48dp"
         android:fontFamily="@font/raleway"
         android:text="Don't have an account yet?"
+        android:textColor="@color/neutral_600"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_button" />
@@ -98,6 +103,7 @@
         android:layout_marginStart="12dp"
         android:fontFamily="@font/raleway_bold"
         android:text="Sign Up"
+        android:textColor="@color/primary_700"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/no_account_hint"
         app:layout_constraintStart_toEndOf="@+id/no_account_hint" />
