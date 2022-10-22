@@ -2,13 +2,16 @@
     <item
         android:id="@+id/nav_item_home_screen"
         android:enabled="true"
-        android:title="Home"/>
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
     <item
         android:id="@+id/nav_item_exercises_screen"
         android:enabled="true"
-        android:title="Exercises"/>
+        android:icon="@drawable/ic_shoe_prints"
+        android:title="Exercises" />
     <item
         android:id="@+id/nav_item_profile_screen"
         android:enabled="true"
-        android:title="Settings"/>
+        android:icon="@drawable/ic_cog"
+        android:title="Settings" />
 </menu>
