@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.grassyass.touchsomegrass.R
 import com.grassyass.touchsomegrass.fragments.HomeFragment
-import com.grassyass.touchsomegrass.fragments.ProfileFragment
+import com.grassyass.touchsomegrass.fragments.SettingsFragment
 import com.grassyass.touchsomegrass.fragments.ExercisesFragment
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         homeScreen = HomeFragment()
         exercisesScreen = ExercisesFragment()
-        profileScreen = ProfileFragment()
+        profileScreen = SettingsFragment()
 
         bottomNavigation.setOnItemSelectedListener {
             when(it.itemId) {
