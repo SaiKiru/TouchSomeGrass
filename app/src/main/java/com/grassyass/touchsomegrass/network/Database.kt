@@ -7,7 +7,12 @@ import com.google.firebase.database.FirebaseDatabase
 
 object Database {
     private const val dbURL: String = "https://touch-some-grass-default-rtdb.asia-southeast1.firebasedatabase.app"
-    private val dbRef: DatabaseReference = FirebaseDatabase.getInstance(dbURL).reference
+    private var dbRef: DatabaseReference
+
+    init {
+        FirebaseDatabase.getInstance(dbURL).setPersistenceEnabled(true)
+        dbRef = FirebaseDatabase.getInstance(dbURL).reference
+    }
 
     fun writeData(path: String, data: Any) {
         dbRef.child(path).setValue(data)
