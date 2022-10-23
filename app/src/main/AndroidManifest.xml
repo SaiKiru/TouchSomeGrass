@@ -49,10 +49,6 @@
             android:exported="false"
             android:label="@string/activity_exercise_settings_label" />
         <activity
-            android:name=".activities.SettingsActivity"
-            android:exported="false"
-            android:label="@string/activity_settings_label" />
-        <activity
             android:name=".activities.AppLockActivity"
             android:exported="false"
             android:label="App Lock"
