@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.grassyass.touchsomegrass">
 
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,8 +17,8 @@
         <activity
             android:name=".activities.OnboardingActivity"
             android:exported="true"
-            android:theme="@style/Theme.TouchSomeGrass.NoActionBar"
-            android:noHistory="true" >
+            android:noHistory="true"
+            android:theme="@style/Theme.TouchSomeGrass.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,6 +52,12 @@
             android:name=".activities.SettingsActivity"
             android:exported="false"
             android:label="@string/activity_settings_label" />
+        <activity
+            android:name=".activities.AppLockActivity"
+            android:exported="false"
+            android:label="App Lock"
+            android:theme="@style/Theme.TouchSomeGrass.NoActionBar">
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
