@@ -30,7 +30,7 @@ class AppListAdapter(
         val appName = packageManager.getApplicationLabel(app)
         val appIcon = packageManager.getApplicationIcon(app)
 
-        val iconSize = pxToDp(context, 32F)
+        val iconSize = pxToDp(context, 32F).toInt()
         appIcon.setBounds(0, 0, iconSize, iconSize)
 
         holder.appSwitch.text = appName
