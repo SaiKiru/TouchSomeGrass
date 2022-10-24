@@ -1,0 +1,18 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="220dp" >
+
+    <com.grassyass.touchsomegrass.views.BarGraph
+        android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingRight="32dp"
+        android:paddingBottom="24dp"
+        app:barColor="@color/secondary_300"
+        app:boundsColor="@color/neutral_400"
+        app:guideLineColor="@color/neutral_100"
+        app:textColor="@color/neutral_400" />
+
+</FrameLayout>

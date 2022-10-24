@@ -3,7 +3,9 @@
     <color name="primary_100">#E7EFE1</color>
     <color name="primary_400">#89A586</color>
     <color name="primary_700">#364B42</color>
+    <color name="secondary_300">#F8B564</color>
     <color name="secondary_400">#ECA34E</color>
+    <color name="neutral_100">#D6DEF1</color>
     <color name="neutral_400">#848A9A</color>
     <color name="neutral_600">#5F616F</color>
     <color name="black">#FF000000</color>

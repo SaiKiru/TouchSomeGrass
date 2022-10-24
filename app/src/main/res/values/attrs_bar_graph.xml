@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="BarGraph">
+        <attr name="barColor" format="color" />
+        <attr name="textColor" format="color" />
+        <attr name="boundsColor" format="color" />
+        <attr name="guideLineColor" format="color" />
+    </declare-styleable>
+</resources>
