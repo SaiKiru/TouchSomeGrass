@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Switch
 import androidx.recyclerview.widget.RecyclerView
 import com.grassyass.touchsomegrass.R
-import com.grassyass.touchsomegrass.utils.pxToDp
+import com.grassyass.touchsomegrass.utils.dpToPx
 
 class AppListAdapter(
     private val context: Context,
@@ -30,7 +30,7 @@ class AppListAdapter(
         val appName = packageManager.getApplicationLabel(app)
         val appIcon = packageManager.getApplicationIcon(app)
 
-        val iconSize = pxToDp(context, 32F).toInt()
+        val iconSize = dpToPx(context, 32F).toInt()
         appIcon.setBounds(0, 0, iconSize, iconSize)
 
         holder.appSwitch.text = appName

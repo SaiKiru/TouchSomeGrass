@@ -9,7 +9,7 @@ import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
 import com.grassyass.touchsomegrass.R
-import com.grassyass.touchsomegrass.utils.pxToDp
+import com.grassyass.touchsomegrass.utils.dpToPx
 import kotlin.math.roundToInt
 
 /**
@@ -98,7 +98,7 @@ class BarGraph : View {
             flags = Paint.ANTI_ALIAS_FLAG
             color = textColor
             textAlign = Paint.Align.CENTER
-            textSize = pxToDp(context, 16F)
+            textSize = dpToPx(context, 16F)
             typeface = Typeface.DEFAULT_BOLD
         }
 
@@ -151,14 +151,14 @@ class BarGraph : View {
 
         canvas.drawText(
             "${(max * 0.70).roundToInt()}",
-            contentWidth + pxToDp(context, 16F),
+            contentWidth + dpToPx(context, 16F),
             (contentHeight - (0.70 * skyline) - (textPaint.descent() + textPaint.ascent()) / 2).toFloat(),
             textPaint
         )
 
         canvas.drawText(
             "${(max * 0.30).roundToInt()}",
-            contentWidth + pxToDp(context, 16F),
+            contentWidth + dpToPx(context, 16F),
             (contentHeight - (0.30 * skyline) - (textPaint.descent() + textPaint.ascent()) / 2).toFloat(),
             textPaint
         )
@@ -182,7 +182,7 @@ class BarGraph : View {
             canvas.drawText(
                 _labels[i],
                 anchor.toFloat(),
-                contentHeight + pxToDp(context, 16F + 4F),
+                contentHeight + dpToPx(context, 16F + 4F),
                 textPaint
             )
         }
