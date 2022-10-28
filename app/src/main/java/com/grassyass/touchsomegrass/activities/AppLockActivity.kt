@@ -1,6 +1,7 @@
 package com.grassyass.touchsomegrass.activities
 
 import android.content.Context
+import android.content.Intent
 import android.hardware.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -51,6 +52,11 @@ class AppLockActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onBackPressed() {
-        return
+        Intent(Intent.ACTION_MAIN).also {
+            it.addCategory(Intent.CATEGORY_HOME)
+            it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+            startActivity(it)
+        }
     }
 }
