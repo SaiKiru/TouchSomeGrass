@@ -29,8 +29,10 @@ class ExerciseListAdapter(
 
         holder.exerciseNameLabel.text = item.name
         holder.setOnClickListener {
-            val intent = Intent(context, ExerciseSettingsActivity::class.java)
-            context.startActivity(intent)
+            Intent(context, ExerciseSettingsActivity::class.java).also {
+                it.putExtra(context.getString(R.string.extra_edit_exercise), item)
+                context.startActivity(it)
+            }
         }
     }
 
