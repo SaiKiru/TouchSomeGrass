@@ -12,9 +12,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.grassyass.touchsomegrass.R
 import com.grassyass.touchsomegrass.activities.LoginActivity
-import com.grassyass.touchsomegrass.models.User
-import com.grassyass.touchsomegrass.network.Authentication
-import com.grassyass.touchsomegrass.network.api.UsersAPI
+import com.grassyass.touchsomegrass.data.models.User
+import com.grassyass.touchsomegrass.data.network.Authentication
+import com.grassyass.touchsomegrass.data.network.api.UsersAPI
 import com.grassyass.touchsomegrass.views.BarGraph
 
 class HomeFragment : Fragment() {

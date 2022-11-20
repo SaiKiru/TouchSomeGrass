@@ -1,4 +1,4 @@
-package com.grassyass.touchsomegrass.network
+package com.grassyass.touchsomegrass.data.network
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DataSnapshot

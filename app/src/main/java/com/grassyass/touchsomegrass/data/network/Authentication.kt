@@ -1,4 +1,4 @@
-package com.grassyass.touchsomegrass.network
+package com.grassyass.touchsomegrass.data.network
 
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener

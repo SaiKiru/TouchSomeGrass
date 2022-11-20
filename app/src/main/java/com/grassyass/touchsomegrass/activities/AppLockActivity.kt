@@ -14,10 +14,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.grassyass.touchsomegrass.R
-import com.grassyass.touchsomegrass.models.Exercise
-import com.grassyass.touchsomegrass.models.Session
-import com.grassyass.touchsomegrass.network.api.ExercisesAPI
-import com.grassyass.touchsomegrass.network.api.SessionsAPI
+import com.grassyass.touchsomegrass.data.models.Exercise
+import com.grassyass.touchsomegrass.data.models.Session
+import com.grassyass.touchsomegrass.data.network.api.ExercisesAPI
+import com.grassyass.touchsomegrass.data.network.api.SessionsAPI
 import com.grassyass.touchsomegrass.utils.StepTracker
 import com.grassyass.touchsomegrass.utils.Tracker
 

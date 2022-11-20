@@ -10,7 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseUser
 import com.grassyass.touchsomegrass.R
-import com.grassyass.touchsomegrass.network.Authentication
+import com.grassyass.touchsomegrass.data.network.Authentication
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var emailInputField: EditText

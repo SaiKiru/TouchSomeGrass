@@ -17,8 +17,8 @@ import com.google.firebase.database.ValueEventListener
 import com.grassyass.touchsomegrass.R
 import com.grassyass.touchsomegrass.activities.NewExerciseActivity
 import com.grassyass.touchsomegrass.adapters.ExerciseListAdapter
-import com.grassyass.touchsomegrass.models.Exercise
-import com.grassyass.touchsomegrass.network.api.ExercisesAPI
+import com.grassyass.touchsomegrass.data.models.Exercise
+import com.grassyass.touchsomegrass.data.network.api.ExercisesAPI
 
 
 class ExercisesFragment : Fragment() {

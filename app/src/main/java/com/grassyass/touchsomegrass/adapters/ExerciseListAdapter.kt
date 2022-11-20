@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.grassyass.touchsomegrass.R
 import com.grassyass.touchsomegrass.activities.ExerciseSettingsActivity
-import com.grassyass.touchsomegrass.models.Exercise
+import com.grassyass.touchsomegrass.data.models.Exercise
 
 class ExerciseListAdapter(
     private val context: Context,

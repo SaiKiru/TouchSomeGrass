@@ -1,4 +1,4 @@
-package com.grassyass.touchsomegrass.models
+package com.grassyass.touchsomegrass.data.models
 
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties

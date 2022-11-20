@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import com.grassyass.touchsomegrass.R
-import com.grassyass.touchsomegrass.models.Exercise
+import com.grassyass.touchsomegrass.data.models.Exercise
 
 class NewExerciseActivity : AppCompatActivity() {
     private lateinit var exerciseNameField: EditText

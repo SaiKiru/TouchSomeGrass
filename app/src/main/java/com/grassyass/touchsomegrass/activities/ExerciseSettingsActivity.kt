@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.grassyass.touchsomegrass.R
-import com.grassyass.touchsomegrass.models.Exercise
-import com.grassyass.touchsomegrass.network.api.ExercisesAPI
+import com.grassyass.touchsomegrass.data.models.Exercise
+import com.grassyass.touchsomegrass.data.network.api.ExercisesAPI
 
 class ExerciseSettingsActivity : AppCompatActivity() {
     private lateinit var exercise: Exercise
