@@ -9,8 +9,8 @@ import com.grassyass.touchsomegrass.network.Database
 object SessionsAPI {
     private val userUID: String? = Authentication.getCurrentUser()?.uid
 
-    fun addSession(exerciseUID: String, session: Session) {
-        Database.pushData("/exerciseSessions/$userUID/$exerciseUID", session)
+    fun addSession(exerciseUID: String, session: Session): Task<Void> {
+        return Database.pushData("/exerciseSessions/$userUID/$exerciseUID", session)
     }
 
     fun getSessions(exerciseUID: String): Task<DataSnapshot> {

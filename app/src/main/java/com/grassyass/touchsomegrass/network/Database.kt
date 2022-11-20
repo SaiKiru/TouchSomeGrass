@@ -14,14 +14,14 @@ object Database {
         dbRef = FirebaseDatabase.getInstance(dbURL).reference
     }
 
-    fun writeData(path: String, data: Any) {
-        dbRef.child(path).setValue(data)
+    fun writeData(path: String, data: Any): Task<Void> {
+        return dbRef.child(path).setValue(data)
     }
 
-    fun pushData(path: String, data: Any) {
+    fun pushData(path: String, data: Any): Task<Void> {
         val key: String? = dbRef.child(path).push().key
 
-        writeData("$path/$key", data)
+        return writeData("$path/$key", data)
     }
 
     fun updateChildren(updates: Map<String, Any>) {

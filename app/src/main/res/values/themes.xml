@@ -7,10 +7,17 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondary_400</item>
         <item name="colorOnSecondary">@color/white</item>
+        <!-- View themes -->
+        <item name="android:spinnerItemStyle">@style/SpinnerOnDark</item>
     </style>
 
     <style name="Theme.TouchSomeGrass.NoActionBar" parent="Theme.TouchSomeGrass">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="SpinnerOnDark" parent="@android:style/Widget.Material.Spinner">
+        <item name="android:textColor">@color/neutral_100</item>
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>
