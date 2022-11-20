@@ -47,8 +47,11 @@ class ExercisesFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val newExercises: ArrayList<Exercise> = ArrayList()
 
-                    snapshot.children.forEach { exercise ->
-                        newExercises.add(exercise.getValue(Exercise::class.java)!!)
+                    snapshot.children.forEach { exerciseSnapshot ->
+                        val exercise = exerciseSnapshot.getValue(Exercise::class.java)!!
+                        exercise.id = exerciseSnapshot.key!!
+
+                        newExercises.add(exercise)
                     }
 
                     exerciseListData = newExercises
