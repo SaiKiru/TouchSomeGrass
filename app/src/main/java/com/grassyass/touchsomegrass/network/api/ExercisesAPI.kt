@@ -14,9 +14,11 @@ object ExercisesAPI {
     }
 
     fun deleteExercise(exerciseUID: String) {
+        val emptyExercise = Exercise(null, null)
+
         val updates = hashMapOf<String, Any>(
-            "/exercises/$userUID/$exerciseUID" to { },
-            "/exerciseSessions/$userUID/$exerciseUID" to { }
+            "/exercises/$userUID/$exerciseUID" to emptyExercise,
+            "/exerciseSessions/$userUID/$exerciseUID" to emptyExercise
         )
 
         Database.updateChildren(updates)

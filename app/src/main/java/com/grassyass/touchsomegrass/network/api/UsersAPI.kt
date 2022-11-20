@@ -14,10 +14,12 @@ object UsersAPI {
     }
 
     fun deleteUser() {
+        val emptyUser = User(null, null, null)
+
         val updates = hashMapOf<String, Any>(
-            "/users/$userUID" to { },
-            "/exercises/$userUID" to { },
-            "/exerciseSessions/$userUID" to { }
+            "/users/$userUID" to emptyUser,
+            "/exercises/$userUID" to emptyUser,
+            "/exerciseSessions/$userUID" to emptyUser
         )
 
         Database.updateChildren(updates)
