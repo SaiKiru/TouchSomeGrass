@@ -158,9 +158,8 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     private fun endSession() {
         tracker.end()
 
-        recordSession().addOnSuccessListener {
-            finish()
-        }
+        recordSession()
+        finish()
     }
 
     private fun recordSession(): Task<Void> {
