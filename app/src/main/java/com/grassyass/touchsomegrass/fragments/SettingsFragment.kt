@@ -1,6 +1,5 @@
 package com.grassyass.touchsomegrass.fragments
 
-import android.app.Application
 import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.grassyass.touchsomegrass.BuildConfig
 import com.grassyass.touchsomegrass.R
 import com.grassyass.touchsomegrass.adapters.AppListAdapter
 import com.grassyass.touchsomegrass.adapters.AppListSettingsAdapter
@@ -24,6 +24,11 @@ class SettingsFragment : Fragment() {
     private var apps: List<ApplicationInfo> = emptyList()
     private var whitelist: ArrayList<AppData> = arrayListOf()
     private var blacklist: ArrayList<AppData> = arrayListOf()
+    private val criticalSystemApps: List<String> = listOf(
+        "com.android.contacts",
+        "com.android.settings",
+        "com.android.vending"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +45,9 @@ class SettingsFragment : Fragment() {
 
         // offload data loading during app start for better user experience
         apps.forEach { app ->
-            if (app.packageName == requireContext().packageName) {
+            if (app.packageName == BuildConfig.APPLICATION_ID
+                || criticalSystemApps.contains(app.packageName)
+            ) {
                 return@forEach
             }
 
