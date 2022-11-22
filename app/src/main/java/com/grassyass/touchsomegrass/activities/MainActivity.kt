@@ -58,11 +58,40 @@ class MainActivity : AppCompatActivity() {
         exercisesScreen = ExercisesFragment()
         profileScreen = SettingsFragment()
 
+        supportFragmentManager.beginTransaction().apply {
+            add(R.id.fragment_switcher, homeScreen)
+            add(R.id.fragment_switcher, exercisesScreen)
+            add(R.id.fragment_switcher, profileScreen)
+            hide(exercisesScreen)
+            hide(profileScreen)
+        }.commit()
+
         bottomNavigation.setOnItemSelectedListener {
             when(it.itemId) {
-                R.id.nav_item_home_screen -> { changeScreen(homeScreen) }
-                R.id.nav_item_exercises_screen -> { changeScreen(exercisesScreen) }
-                R.id.nav_item_profile_screen -> { changeScreen(profileScreen) }
+                R.id.nav_item_home_screen -> {
+                    supportFragmentManager.beginTransaction()
+                        .hide(exercisesScreen)
+                        .hide(profileScreen)
+                        .show(homeScreen)
+                        .commit()
+                    true
+                }
+                R.id.nav_item_exercises_screen -> {
+                    supportFragmentManager.beginTransaction()
+                        .hide(homeScreen)
+                        .hide(profileScreen)
+                        .show(exercisesScreen)
+                        .commit()
+                    true
+                }
+                R.id.nav_item_profile_screen -> {
+                    supportFragmentManager.beginTransaction()
+                        .show(profileScreen)
+                        .hide(homeScreen)
+                        .hide(exercisesScreen)
+                        .commit()
+                    true
+                }
                 else -> false
             }
         }
