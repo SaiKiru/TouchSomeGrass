@@ -5,6 +5,7 @@ import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Handler
 import android.os.IBinder
 import com.grassyass.touchsomegrass.BuildConfig
@@ -16,11 +17,13 @@ class AppWatcherService : Service() {
     override fun onCreate() {
         super.onCreate()
 
-        val handler = Handler()
-        var prevTasks: String
-        var recentTasks = ""
+        val launcherPackageName = packageManager.resolveActivity(
+            Intent("android.intent.action.MAIN"),
+            PackageManager.MATCH_DEFAULT_ONLY
+        )?.activityInfo?.packageName
 
-        prevTasks = recentTasks
+        val handler = Handler()
+        var recentTasks: String
 
         handler.postDelayed(object : Runnable {
             override fun run() {
@@ -48,24 +51,27 @@ class AppWatcherService : Service() {
 
                     recentTasks = topPackageName
 
-                    if (recentTasks.isNotEmpty() && recentTasks != prevTasks) {
-                        if (recentTasks != BuildConfig.APPLICATION_ID) {
-                            Intent(applicationContext, AppLockActivity::class.java).also {
-                                it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                it.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                                startActivity(it)
-                            }
+                    if (recentTasks.isNotEmpty()
+                        && recentTasks != BuildConfig.APPLICATION_ID
+                        // critical system apps
+                        && recentTasks != "com.android.contacts"
+                        && recentTasks != "com.android.settings"
+                        && recentTasks != "com.android.vending"
+                        && recentTasks != launcherPackageName
+                    ) {
+                        Intent(applicationContext, AppLockActivity::class.java).also {
+                            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            it.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                            startActivity(it)
                         }
                     }
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
 
-                prevTasks = recentTasks
-
-                handler.postDelayed(this, 5_000)
+                handler.postDelayed(this, 3_000)
             }
-        }, 5_000)
+        }, 3_000)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
