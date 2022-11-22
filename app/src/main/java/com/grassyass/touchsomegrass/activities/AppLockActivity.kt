@@ -18,6 +18,7 @@ import com.grassyass.touchsomegrass.data.models.Session
 import com.grassyass.touchsomegrass.data.network.api.ExercisesAPI
 import com.grassyass.touchsomegrass.data.network.api.SessionsAPI
 import com.grassyass.touchsomegrass.data.network.api.UsersAPI
+import com.grassyass.touchsomegrass.services.AppWatcherService
 import com.grassyass.touchsomegrass.utils.StepTracker
 import com.grassyass.touchsomegrass.utils.Tracker
 
@@ -157,6 +158,9 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
     private fun endSession() {
         tracker.end()
+        Intent(applicationContext, AppWatcherService::class.java).also { intent ->
+            stopService(intent)
+        }
 
         recordSession()
         finish()

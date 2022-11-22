@@ -3,14 +3,10 @@ package com.grassyass.touchsomegrass.utils
 import java.util.*
 
 abstract class Tracker() {
-    private var _data: Any? = null
+    var data: Any? = null
     var startTime: Long? = null
     var endTime: Long? = null
     var listener: OnValueChangedListener? = null
-
-    lateinit var data: Any
-        fun get(): Any? { return _data}
-        fun set(value: Any) {_data = value}
 
     open fun start() {
         startTime = Date().time
@@ -18,6 +14,12 @@ abstract class Tracker() {
 
     open fun end() {
         endTime = Date().time
+    }
+
+    open fun reset() {
+        startTime = null
+        endTime = null
+        data = null
     }
 
     open fun setOnValueChangedListener(onValueChangedListener: OnValueChangedListener) {

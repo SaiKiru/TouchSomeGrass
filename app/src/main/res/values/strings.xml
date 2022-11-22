@@ -13,4 +13,9 @@
     <!-- Extras -->
     <string name="extra_new_exercise">com.grassyass.touchsomegrass.extra.NEW_EXERCISE</string>
     <string name="extra_edit_exercise">com.grassyass.touchsomegrass.extra.EDIT_EXERCISE</string>
+
+    <!-- Notification Channels -->
+    <string name="tracker_channel_id">ActivityTrackerNotification</string>
+    <string name="tracker_channel_name">Touch Some Grass</string>
+    <string name="tracker_channel_description">App is recording your activity</string>
 </resources>

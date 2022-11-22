@@ -18,6 +18,13 @@ class StepTracker(val context: Context): Tracker(), SensorEventListener {
         super.start()
     }
 
+    override fun reset() {
+        super.reset()
+
+        stepCount = 0
+        data = 0
+    }
+
     override fun onSensorChanged(sensorEvent: SensorEvent?) {
         sensorEvent ?: return
 

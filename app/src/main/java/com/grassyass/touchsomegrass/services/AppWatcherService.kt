@@ -20,6 +20,8 @@ class AppWatcherService : Service() {
         "com.android.settings",
         "com.android.vending"
     )
+    private lateinit var handler: Handler
+    private lateinit var appWatcherPoller: Runnable
 
     override fun onCreate() {
         super.onCreate()
@@ -29,10 +31,13 @@ class AppWatcherService : Service() {
             PackageManager.MATCH_DEFAULT_ONLY
         )?.activityInfo?.packageName
 
-        val handler = Handler()
         var recentTasks: String
+        val millisecondsPerMinute = 60_000L
+        val pollingPeriod = 45 * millisecondsPerMinute
+        val gracePeriod = 1 * millisecondsPerMinute
 
-        handler.postDelayed(object : Runnable {
+        handler = Handler()
+        appWatcherPoller = object : Runnable {
             override fun run() {
                 try {
                     var topPackageName = ""
@@ -42,7 +47,7 @@ class AppWatcherService : Service() {
 
                     val stats: List<UsageStats> = usageStatsManager.queryUsageStats(
                         UsageStatsManager.INTERVAL_DAILY,
-                        time - 5_000,
+                        time - (pollingPeriod + gracePeriod),
                         time
                     )
 
@@ -76,7 +81,9 @@ class AppWatcherService : Service() {
 
                 handler.postDelayed(this, 3_000)
             }
-        }, 3_000)
+        }
+
+        handler.postDelayed(appWatcherPoller, 3_000)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -87,5 +94,11 @@ class AppWatcherService : Service() {
 
     override fun onBind(intent: Intent): IBinder {
         TODO("Return the communication channel to the service.")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        handler.removeCallbacks(appWatcherPoller)
     }
 }
