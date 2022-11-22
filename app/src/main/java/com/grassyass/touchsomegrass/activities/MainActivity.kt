@@ -1,10 +1,12 @@
 package com.grassyass.touchsomegrass.activities
 
+import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.grassyass.touchsomegrass.R
+import com.grassyass.touchsomegrass.data.local.Whitelist
 import com.grassyass.touchsomegrass.fragments.HomeFragment
 import com.grassyass.touchsomegrass.fragments.SettingsFragment
 import com.grassyass.touchsomegrass.fragments.ExercisesFragment
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Whitelist.application = applicationContext as Application
 
         initializeUI()
     }

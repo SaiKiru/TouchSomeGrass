@@ -10,9 +10,16 @@ import android.os.Handler
 import android.os.IBinder
 import com.grassyass.touchsomegrass.BuildConfig
 import com.grassyass.touchsomegrass.activities.AppLockActivity
+import com.grassyass.touchsomegrass.data.local.Whitelist
 import java.util.*
 
 class AppWatcherService : Service() {
+    private var whitelist: ArrayList<String> = Whitelist.getAppList()
+    private val criticalSystemApps: List<String> = listOf(
+        "com.android.contacts",
+        "com.android.settings",
+        "com.android.vending"
+    )
 
     override fun onCreate() {
         super.onCreate()
@@ -53,11 +60,9 @@ class AppWatcherService : Service() {
 
                     if (recentTasks.isNotEmpty()
                         && recentTasks != BuildConfig.APPLICATION_ID
-                        // critical system apps
-                        && recentTasks != "com.android.contacts"
-                        && recentTasks != "com.android.settings"
-                        && recentTasks != "com.android.vending"
                         && recentTasks != launcherPackageName
+                        && !criticalSystemApps.contains(recentTasks)
+                        && !whitelist.contains(recentTasks)
                     ) {
                         Intent(applicationContext, AppLockActivity::class.java).also {
                             it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -75,6 +80,8 @@ class AppWatcherService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        whitelist = Whitelist.getAppList()
+
         return super.onStartCommand(intent, flags, startId)
     }
 

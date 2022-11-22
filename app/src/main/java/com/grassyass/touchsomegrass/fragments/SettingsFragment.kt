@@ -28,7 +28,6 @@ class SettingsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Whitelist.application = requireContext().applicationContext as Application
         localWhitelist = Whitelist.getAppList()
 
         val packageManager = requireContext().packageManager
