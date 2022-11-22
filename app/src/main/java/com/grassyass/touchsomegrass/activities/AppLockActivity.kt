@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
-import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -18,6 +17,7 @@ import com.grassyass.touchsomegrass.data.models.Exercise
 import com.grassyass.touchsomegrass.data.models.Session
 import com.grassyass.touchsomegrass.data.network.api.ExercisesAPI
 import com.grassyass.touchsomegrass.data.network.api.SessionsAPI
+import com.grassyass.touchsomegrass.data.network.api.UsersAPI
 import com.grassyass.touchsomegrass.utils.StepTracker
 import com.grassyass.touchsomegrass.utils.Tracker
 
@@ -162,13 +162,36 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         finish()
     }
 
-    private fun recordSession(): Task<Void> {
+    private fun recordSession() {
         Session(
             tracker.startTime,
             tracker.endTime,
             tracker.data
         ).also { session ->
-            return SessionsAPI.addSession(activeExercise.id, session)
+            SessionsAPI.addSession(activeExercise.id, session)
+
+            when (activeExercise.type) {
+                Exercise.ExerciseType.StepExercise -> {
+                    val suggestedStepCount = 17_500.0
+                    val heartPoints = 100.0
+                    val ratio = (tracker.data as Int) / suggestedStepCount
+
+                    val additionalExp = ratio * heartPoints
+
+                    UsersAPI.addExp(additionalExp)
+                }
+                Exercise.ExerciseType.DurationExercise -> {
+                    val millisecondsPerMinute = 60_000.0
+                    val suggestedMoveMinutes = 150.0
+                    val heartPoints = 100.0
+                    val ratio = (tracker.data as Long) / (suggestedMoveMinutes * millisecondsPerMinute)
+
+                    val additionalExp = ratio * heartPoints
+
+                    UsersAPI.addExp(additionalExp)
+                }
+                else -> { }
+            }
         }
     }
 }
