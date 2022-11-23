@@ -7,6 +7,8 @@ import android.view.MenuItem
 import com.grassyass.touchsomegrass.R
 import com.grassyass.touchsomegrass.data.models.Exercise
 import com.grassyass.touchsomegrass.data.network.api.ExercisesAPI
+import com.grassyass.touchsomegrass.fragments.dialogs.DeleteExerciseConfirmDialog
+import com.grassyass.touchsomegrass.fragments.dialogs.DeleteExerciseConfirmDialog.DeleteExerciseConfirmDialogListener
 
 class ExerciseSettingsActivity : AppCompatActivity() {
     private lateinit var exercise: Exercise
@@ -34,8 +36,19 @@ class ExerciseSettingsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_delete_exercise -> {
-                ExercisesAPI.deleteExercise(exercise.id)
-                finish()
+                DeleteExerciseConfirmDialog().apply {
+                    setOnDialogButtonClickListener(object: DeleteExerciseConfirmDialogListener {
+                        override fun onDialogPositiveClick() {
+                            ExercisesAPI.deleteExercise(exercise.id)
+                            finish()
+                        }
+
+                        override fun onDialogNegativeClick() { }
+                    })
+
+                    show(supportFragmentManager, "delete_exercise_confirm_dialog")
+                }
+
                 return true
             }
         }
