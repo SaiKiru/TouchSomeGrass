@@ -3,7 +3,6 @@ package com.grassyass.touchsomegrass.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.viewpager2.widget.ViewPager2
@@ -23,10 +22,8 @@ class OnboardingActivity : AppCompatActivity() {
         Initialization.application = application
 
         if (Initialization.isAppInitialized()) {
-            Log.i("grassy onboard", "not your first time ehh..")
-            navigateToSignUp()
+            navigateToLogin()
         } else {
-            Log.i("grassy onboard", "first time, loading pages...")
             loadOnboardingScreens()
         }
     }
@@ -73,7 +70,6 @@ class OnboardingActivity : AppCompatActivity() {
         })
 
         readyButton.setOnClickListener {
-            Log.i("grassy onboard", "initializing app...")
             Initialization.setAppAsInitialized()
             navigateToSignUp()
         }
@@ -81,6 +77,12 @@ class OnboardingActivity : AppCompatActivity() {
 
     private fun navigateToSignUp() {
         Intent(this, SignUpActivity::class.java).also { intent ->
+            startActivity(intent)
+        }
+    }
+
+    private fun navigateToLogin() {
+        Intent(this, LoginActivity::class.java).also { intent ->
             startActivity(intent)
         }
     }
