@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -58,10 +57,7 @@ class ExercisesFragment : Fragment() {
                     exerciseList.adapter = ExerciseListAdapter(view.context, exerciseListData)
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(view.context,"Could not load exercises", Toast.LENGTH_LONG)
-                        .show()
-                }
+                override fun onCancelled(error: DatabaseError) { }
             })
         }
 
