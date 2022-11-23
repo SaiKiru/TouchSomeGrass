@@ -21,6 +21,13 @@ class ExerciseSettingsActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.edit_exercise_actions_menu, menu)
 
+        if (exercise.id == "_default") {
+            menu?.findItem(R.id.action_delete_exercise)?.apply {
+                isVisible = false
+                isEnabled = false
+            }
+        }
+
         return super.onCreateOptionsMenu(menu)
     }
 
