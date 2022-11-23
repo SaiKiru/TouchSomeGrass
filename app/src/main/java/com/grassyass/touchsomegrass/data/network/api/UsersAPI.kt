@@ -4,6 +4,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.grassyass.touchsomegrass.data.models.Exercise
 import com.grassyass.touchsomegrass.data.models.User
 import com.grassyass.touchsomegrass.data.network.Authentication
 import com.grassyass.touchsomegrass.data.network.Database
@@ -12,7 +13,18 @@ object UsersAPI {
     private val userUID: String? = Authentication.getCurrentUser()?.uid
 
     fun addUser(user: User) {
-        Database.writeData("/users/$userUID", user)
+        val defaultExercise = Exercise(
+            Exercise.ExerciseType.StepExercise,
+            "Walking",
+            150
+        )
+
+        val updates = hashMapOf<String, Any>(
+            "/users/$userUID" to user,
+            "/exercises/$userUID/_default" to defaultExercise
+        )
+
+        Database.updateChildren(updates)
     }
 
     fun deleteUser() {
