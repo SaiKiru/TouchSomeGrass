@@ -8,6 +8,7 @@ import android.text.style.UnderlineSpan
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseUser
 import com.grassyass.touchsomegrass.R
 import com.grassyass.touchsomegrass.data.network.Authentication
@@ -46,7 +47,21 @@ class LoginActivity : AppCompatActivity() {
         val email: String = emailInputField.text.toString()
         val password: String = passwordInputField.text.toString()
 
-        Authentication.signIn(email, password, { navigateToHome() })
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Fields must not be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (!email.matches(Regex("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"))) {
+            Toast.makeText(this, "Invalid email address", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        Authentication.signIn(email, password, {
+            navigateToHome()
+        }, {
+            Toast.makeText(this, "Could not sign in. Check your email and password, or try again later", Toast.LENGTH_LONG).show()
+        })
     }
 
     private fun onSignUpButtonPressed() {
