@@ -56,6 +56,7 @@ class HomeFragment : Fragment() {
                     val user = snapshot.getValue(User::class.java)!!
 
                     userNameLabel.text = user.name
+                    userLevelLabel.text = "Level ${user.getLvl()}"
                 }
 
                 override fun onCancelled(error: DatabaseError) {
