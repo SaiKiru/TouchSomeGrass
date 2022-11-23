@@ -27,4 +27,8 @@ object ExercisesAPI {
     fun getExercises(): Task<DataSnapshot> {
         return Database.readData("/exercises/$userUID")
     }
+
+    fun updateExercise(exerciseUID: String, exercise: Exercise) {
+        Database.writeData("/exercises/$userUID/$exerciseUID", exercise)
+    }
 }

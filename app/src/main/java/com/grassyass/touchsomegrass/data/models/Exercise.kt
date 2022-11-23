@@ -7,7 +7,7 @@ import java.io.Serializable
 @IgnoreExtraProperties
 data class Exercise(
     val type: ExerciseType? = ExerciseType.StepExercise,
-    val name: String? = "",
+    var name: String? = "",
     var _target: Any? = null,
 ) : Serializable {
 
