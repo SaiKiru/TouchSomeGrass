@@ -3,11 +3,7 @@ package com.grassyass.touchsomegrass.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import com.grassyass.touchsomegrass.R
 import com.grassyass.touchsomegrass.data.models.Exercise
 
@@ -42,17 +38,22 @@ class NewExerciseActivity : AppCompatActivity() {
         val exerciseName: String = exerciseNameField.text.toString()
         val exerciseType: Exercise.ExerciseType
         val targetString = targetField.text.toString()
-        val target = if (targetString.isEmpty()) 0L
+        var target = if (targetString.isEmpty()) 0L
                     else targetString.toLong()
 
-        if (exerciseName == "") return
+        if (exerciseName.isBlank()) {
+            Toast.makeText(this, "Name must not be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         when (trackerRadioGroup.checkedRadioButtonId) {
             R.id.tracker_option_movement -> {
                 exerciseType = Exercise.ExerciseType.StepExercise
             }
             else -> {
+                val millisecondsPerMinute = 60_000L
                 exerciseType = Exercise.ExerciseType.DurationExercise
+                target *= millisecondsPerMinute
             }
         }
 
