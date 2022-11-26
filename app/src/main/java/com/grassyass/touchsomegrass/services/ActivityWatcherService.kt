@@ -59,7 +59,7 @@ class ActivityWatcherService : Service() {
     }
 
     private fun createPersistentNotification() {
-        val pendingIntent = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java), 0)
+        val pendingIntent = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
 
         startForeground(1 , NotificationCompat.Builder(this, getString(R.string.tracker_channel_id))
             .setOngoing(true)
