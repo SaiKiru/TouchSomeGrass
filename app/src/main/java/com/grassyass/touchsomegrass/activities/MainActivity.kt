@@ -10,7 +10,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
@@ -105,10 +104,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         val requestOverlay = registerForActivityResult(StartActivityForResult()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (!Settings.canDrawOverlays(this)) {
-                    finish()
-                }
+            if (!Settings.canDrawOverlays(this)) {
+                finish()
             }
         }
 
@@ -151,42 +148,38 @@ class MainActivity : AppCompatActivity() {
         }
 
         // request for system alert window permission
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(this)) {
-                OverlayPermissionRequestDialog().apply {
-                    setOnDialogButtonClickListener(object : OverlayPermissionDialogRequestListener {
-                        override fun onDialogPositiveClick() {
-                            Intent(
-                                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                Uri.parse("package:${packageName}")
-                            ).also { intent ->
-                                requestOverlay.launch(intent)
-                            }
+        if (!Settings.canDrawOverlays(this)) {
+            OverlayPermissionRequestDialog().apply {
+                setOnDialogButtonClickListener(object : OverlayPermissionDialogRequestListener {
+                    override fun onDialogPositiveClick() {
+                        Intent(
+                            Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                            Uri.parse("package:${packageName}")
+                        ).also { intent ->
+                            requestOverlay.launch(intent)
                         }
+                    }
 
-                        override fun onDialogNegativeClick() {
-                            finish()
-                        }
-                    })
+                    override fun onDialogNegativeClick() {
+                        finish()
+                    }
+                })
 
-                    show(supportFragmentManager, "overlay_permission_request_dialog")
-                }
+                show(supportFragmentManager, "overlay_permission_request_dialog")
             }
         }
     }
 
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Create the NotificationChannel
-            val name = getString(R.string.tracker_channel_name)
-            val descriptionText = getString(R.string.tracker_channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val mChannel = NotificationChannel(getString(R.string.tracker_channel_id), name, importance)
-            mChannel.description = descriptionText
+        // Create the NotificationChannel
+        val name = getString(R.string.tracker_channel_name)
+        val descriptionText = getString(R.string.tracker_channel_description)
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val mChannel = NotificationChannel(getString(R.string.tracker_channel_id), name, importance)
+        mChannel.description = descriptionText
 
-            // Register the channel with the system
-            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(mChannel)
-        }
+        // Register the channel with the system
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(mChannel)
     }
 }
