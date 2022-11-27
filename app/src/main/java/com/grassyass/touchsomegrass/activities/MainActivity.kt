@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         createNotificationChannel()
         Intent(this, ActivityWatcherService::class.java).also { intent ->
-            startService(intent)
+            startForegroundService(intent)
         }
     }
 
@@ -174,12 +174,18 @@ class MainActivity : AppCompatActivity() {
         // Create the NotificationChannel
         val name = getString(R.string.tracker_channel_name)
         val descriptionText = getString(R.string.tracker_channel_description)
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val importance = NotificationManager.IMPORTANCE_LOW
         val mChannel = NotificationChannel(getString(R.string.tracker_channel_id), name, importance)
         mChannel.description = descriptionText
 
         // Register the channel with the system
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(mChannel)
+
+        // AppWatcher
+        val appWatcherNotificationChannel = NotificationChannel("AppWatcherNotification", "Touch Some Grass", NotificationManager.IMPORTANCE_LOW)
+        appWatcherNotificationChannel.description = "We are waiting for you to exercise"
+
+        notificationManager.createNotificationChannel(appWatcherNotificationChannel)
     }
 }

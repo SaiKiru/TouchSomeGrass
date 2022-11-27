@@ -67,7 +67,8 @@
             android:name=".activities.AppLockActivity"
             android:exported="false"
             android:label="App Lock"
-            android:theme="@style/Theme.TouchSomeGrass.NoActionBar" />
+            android:theme="@style/Theme.TouchSomeGrass.NoActionBar"
+            android:noHistory="true"/>
 
         <meta-data
             android:name="preloaded_fonts"

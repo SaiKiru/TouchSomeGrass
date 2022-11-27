@@ -1,5 +1,6 @@
 package com.grassyass.touchsomegrass.services
 
+import android.app.PendingIntent
 import android.app.Service
 import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
@@ -8,7 +9,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Handler
 import android.os.IBinder
+import androidx.core.app.NotificationCompat
 import com.grassyass.touchsomegrass.BuildConfig
+import com.grassyass.touchsomegrass.R
 import com.grassyass.touchsomegrass.activities.AppLockActivity
 import com.grassyass.touchsomegrass.data.local.Whitelist
 import java.util.*
@@ -87,9 +90,12 @@ class AppWatcherService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        whitelist = Whitelist.getAppList()
+        super.onStartCommand(intent, flags, startId)
 
-        return super.onStartCommand(intent, flags, startId)
+        whitelist = Whitelist.getAppList()
+        createPersistentNotification()
+
+        return START_STICKY
     }
 
     override fun onBind(intent: Intent): IBinder {
@@ -100,5 +106,20 @@ class AppWatcherService : Service() {
         super.onDestroy()
 
         handler.removeCallbacks(appWatcherPoller)
+        stopForeground(true)
+        stopSelf()
+    }
+
+    private fun createPersistentNotification() {
+        val pendingIntent = PendingIntent.getActivity(this, 0, Intent(this, AppLockActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
+
+        startForeground(2, NotificationCompat.Builder(this, "AppWatcherNotification")
+            .setOngoing(true)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("Time to exercise!")
+            .setContentText("Get moving now and touch some grass")
+            .setContentIntent(pendingIntent)
+            .build()
+        )
     }
 }
