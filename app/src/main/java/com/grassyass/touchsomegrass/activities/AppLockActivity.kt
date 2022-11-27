@@ -206,6 +206,9 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
             when (activeExercise.type) {
                 Exercise.ExerciseType.StepExercise -> {
+                    // FIXME: this is a temporary fix to the duplicate data. It should instead be subtracted from _default
+                    return
+
                     val suggestedStepCount = 17_500.0
                     val heartPoints = 100.0
                     val ratio = (tracker.data as Int) / suggestedStepCount
@@ -229,7 +232,7 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         }
     }
 
-    fun enableSessionController() {
+    private fun enableSessionController() {
         // notify user that exercise has been completed
         statusText.text = "Yay!\nYou may now use the app!"
         statusText.alpha = 1f
@@ -244,7 +247,7 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         sessionControllerButton.isEnabled = true
     }
 
-    fun disableSessionController() {
+    private fun disableSessionController() {
         // temporarily disable session controller
         sessionControllerButton.text = "Stop Exercise"
         sessionControllerButton.isEnabled = false
