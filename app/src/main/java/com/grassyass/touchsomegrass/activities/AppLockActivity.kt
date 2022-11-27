@@ -20,6 +20,8 @@ import com.grassyass.touchsomegrass.data.network.api.SessionsAPI
 import com.grassyass.touchsomegrass.data.network.api.UsersAPI
 import com.grassyass.touchsomegrass.services.AppWatcherService
 import com.grassyass.touchsomegrass.utils.StepTracker
+import com.grassyass.touchsomegrass.utils.Time
+import com.grassyass.touchsomegrass.utils.TimeTracker
 import com.grassyass.touchsomegrass.utils.Tracker
 
 class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -48,20 +50,7 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         populateExerciseListSpinner()
 
         sessionControllerButton.setOnClickListener {
-            // temporarily disable session controller
-            sessionControllerButton.text = "Stop Exercise"
-            sessionControllerButton.isEnabled = false
-
-            // mute less important data
-            statusText.alpha = 0.3f
-            targetLabel.alpha = 0.5f
-            sessionControllerButton.alpha = 0.3f
-
-            // hide exercise changer and disable changing exercises
-            exerciseListSpinner.alpha = 0.0f
-            exerciseListSpinner.isEnabled = false
-            findViewById<TextView>(R.id.change_exercise_label).alpha = 0.0f
-
+            disableSessionController()
             startSession()
         }
     }
@@ -82,11 +71,48 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             Exercise.ExerciseType.StepExercise -> {
                 targetLabel.text = "You need to take at least\n${activeExercise.target} steps"
                 progressValueLabel.text = "steps done"
+                progressValueTextView.text = "0"
             }
             Exercise.ExerciseType.DurationExercise -> {
-                // TODO: format time to be more human readable
-                targetLabel.text = "You need to last for at least\n${activeExercise.target} ms"
+                val time = Time(activeExercise.target as Long)
+
+                val timeString: String
+
+                if (time.hours == 0L) {
+                    timeString = if (time.seconds == 0L) {
+                        "${time.minutes} minutes"
+                    } else if (time.seconds > 1) {
+                        "${time.minutes} minutes and ${time.seconds} seconds"
+                    } else {
+                        "${time.minutes} minutes and ${time.seconds} second"
+                    }
+                } else {
+                    timeString = if (time.minutes == 0L) {
+                        if (time.hours > 1) {
+                            "${time.hours} hours"
+                        } else {
+                            "${time.hours} hour"
+                        }
+                    } else {
+                        if (time.hours > 1) {
+                            if (time.minutes > 1) {
+                                "${time.hours} hours and ${time.minutes} minutes"
+                            } else {
+                                "${time.hours} hours and ${time.minutes} minute"
+                            }
+                        } else {
+                            if (time.minutes > 1) {
+                                "${time.hours} hour and ${time.minutes} minutes"
+                            } else {
+                                "${time.hours} hour and ${time.minutes} minute"
+                            }
+                        }
+                    }
+                }
+
+                targetLabel.text = "You need to last for at least\n${timeString}"
                 progressValueLabel.text = "time elapsed"
+                progressValueTextView.text = "00:00"
             }
             else -> { }
         }
@@ -128,24 +154,28 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
                     progressValueTextView.text = value.toString()
 
-                    if (value >= target.toInt()) {
-                        // notify user that exercise has been completed
-                        statusText.text = "Yay!\nYou may now use the app!"
-                        statusText.alpha = 1f
-
-                        // set session controller to end session on click
-                        sessionControllerButton.setOnClickListener {
-                            endSession()
-                        }
-
-                        // re-enable session controller
-                        sessionControllerButton.alpha = 1.0f
-                        sessionControllerButton.isEnabled = true
-                    }
+                    if (value >= target.toInt()) { enableSessionController() }
                 }
             }
             Exercise.ExerciseType.DurationExercise -> {
-                // TODO: define logic for time tracking
+                tracker = TimeTracker()
+                tracker.setOnValueChangedListener { value ->
+                    value as Long
+                    val target = activeExercise.target as Long
+                    val time = Time(value)
+
+                    if (time.hours == 0L) {
+                        val minString = time.minutes.toString().padStart(2, '0')
+                        val secString = time.seconds.toString().padStart(2, '0')
+                        progressValueTextView.text = "${minString}:${secString}"
+                    } else {
+                        val hrsString = time.hours.toString().padStart(2, '0')
+                        val minString = time.minutes.toString().padStart(2, '0')
+                        progressValueTextView.text = "${hrsString}:${minString}"
+                    }
+
+                    if(value >= target) { enableSessionController() }
+                }
             }
             else -> {}
         }
@@ -197,5 +227,36 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                 else -> { }
             }
         }
+    }
+
+    fun enableSessionController() {
+        // notify user that exercise has been completed
+        statusText.text = "Yay!\nYou may now use the app!"
+        statusText.alpha = 1f
+
+        // set session controller to end session on click
+        sessionControllerButton.setOnClickListener {
+            endSession()
+        }
+
+        // re-enable session controller
+        sessionControllerButton.alpha = 1.0f
+        sessionControllerButton.isEnabled = true
+    }
+
+    fun disableSessionController() {
+        // temporarily disable session controller
+        sessionControllerButton.text = "Stop Exercise"
+        sessionControllerButton.isEnabled = false
+
+        // mute less important data
+        statusText.alpha = 0.3f
+        targetLabel.alpha = 0.5f
+        sessionControllerButton.alpha = 0.3f
+
+        // hide exercise changer and disable changing exercises
+        exerciseListSpinner.alpha = 0.0f
+        exerciseListSpinner.isEnabled = false
+        findViewById<TextView>(R.id.change_exercise_label).alpha = 0.0f
     }
 }
