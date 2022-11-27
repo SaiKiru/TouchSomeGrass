@@ -3,7 +3,6 @@ package com.grassyass.touchsomegrass.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import androidx.viewpager2.widget.ViewPager2
 import com.grassyass.touchsomegrass.R
@@ -62,16 +61,20 @@ class OnboardingActivity : AppCompatActivity() {
                 super.onPageSelected(position)
 
                 if (position == onboardingData.size - 1) {
-                    readyButton.visibility = View.VISIBLE
+                    readyButton.text = "I'm Ready!"
                 } else {
-                    readyButton.visibility = View.INVISIBLE
+                    readyButton.text = "Next"
                 }
             }
         })
 
         readyButton.setOnClickListener {
-            Initialization.setAppAsInitialized()
-            navigateToSignUp()
+            if (viewPager.currentItem == onboardingData.size - 1) {
+                Initialization.setAppAsInitialized()
+                navigateToSignUp()
+            } else {
+                viewPager.setCurrentItem(viewPager.currentItem + 1, true)
+            }
         }
     }
 
