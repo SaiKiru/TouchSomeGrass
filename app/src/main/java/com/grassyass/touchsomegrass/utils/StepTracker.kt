@@ -7,11 +7,13 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 
 class StepTracker(val context: Context): Tracker(), SensorEventListener {
-    var stepCount = -1
+    var initialSteps: Float? = null
 
     override fun start() {
         val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+        data = 0
 
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
 
@@ -21,7 +23,7 @@ class StepTracker(val context: Context): Tracker(), SensorEventListener {
     override fun reset() {
         super.reset()
 
-        stepCount = 0
+        initialSteps = null
         data = 0
     }
 
@@ -29,10 +31,13 @@ class StepTracker(val context: Context): Tracker(), SensorEventListener {
         sensorEvent ?: return
 
         sensorEvent.values.firstOrNull()?.let {
-            stepCount++
-            data = stepCount
+            if (initialSteps == null) {
+                initialSteps = sensorEvent.values[0]
+            } else {
+                data = (sensorEvent.values[0] - initialSteps!!).toInt()
+            }
 
-            listener?.onValueChanged(stepCount)
+            listener?.onValueChanged(data)
         }
     }
 
