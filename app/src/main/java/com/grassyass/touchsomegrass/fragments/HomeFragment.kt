@@ -12,10 +12,13 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.grassyass.touchsomegrass.R
 import com.grassyass.touchsomegrass.activities.LoginActivity
+import com.grassyass.touchsomegrass.data.models.Session
 import com.grassyass.touchsomegrass.data.models.User
 import com.grassyass.touchsomegrass.data.network.Authentication
+import com.grassyass.touchsomegrass.data.network.api.SessionsAPI
 import com.grassyass.touchsomegrass.data.network.api.UsersAPI
 import com.grassyass.touchsomegrass.views.BarGraph
+import java.util.*
 
 class HomeFragment : Fragment() {
     private lateinit var userImageView: ImageView
@@ -45,10 +48,7 @@ class HomeFragment : Fragment() {
 
         logOutButton.setOnClickListener { onLogOutButtonPressed() }
 
-        stepGraph.setData(
-            arrayListOf(720, 2432, 640, 2201, 2670, 800, 343),
-            arrayListOf("S", "M", "T", "W", "T", "F", "S")
-        )
+        populateGraph()
 
         UsersAPI.getUser().addOnSuccessListener {
             it.ref.addValueEventListener(object : ValueEventListener {
@@ -71,5 +71,40 @@ class HomeFragment : Fragment() {
         val intent = Intent(context, LoginActivity::class.java)
         startActivity(intent)
         activity?.finish()
+    }
+
+    private fun populateGraph() {
+        val cal = Calendar.getInstance()
+
+        cal.set(Calendar.DAY_OF_WEEK, cal.firstDayOfWeek)
+        val startTime = cal.timeInMillis.toDouble()
+
+        cal.set(Calendar.DAY_OF_WEEK, 7)
+        val endTime = cal.timeInMillis.toDouble()
+
+        SessionsAPI.getSessions("_default").addOnSuccessListener {
+            it.ref
+                .orderByChild("end")
+                .startAt(startTime)
+                .endAt(endTime)
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val aggregate = arrayListOf<Any>(0, 0, 0, 0, 0, 0, 0)
+
+                        snapshot.children.forEach { sessionSnapshot ->
+                            val session = sessionSnapshot.getValue(Session::class.java)!!
+
+                            cal.timeInMillis = session.end as Long
+                            val idx =  cal.get(Calendar.DAY_OF_WEEK)
+
+                            aggregate[idx - 1] = (aggregate[idx - 1] as Int) + (session.data as Long).toInt()
+                        }
+
+                        stepGraph.setData(aggregate, arrayListOf("S", "M", "T", "W", "T", "F", "S"))
+                    }
+
+                    override fun onCancelled(error: DatabaseError) { }
+            })
+        }
     }
 }
