@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
@@ -111,12 +112,16 @@ class MainActivity : AppCompatActivity() {
 
         // request permission for activity recognition
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
-            requestPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                requestPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION)
+            }
         }
 
         // request permission for running foreground services
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.FOREGROUND_SERVICE) == PackageManager.PERMISSION_DENIED) {
-            requestPermissionLauncher.launch(Manifest.permission.FOREGROUND_SERVICE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                requestPermissionLauncher.launch(Manifest.permission.FOREGROUND_SERVICE)
+            }
         }
 
         // request permission for getting usage stats
