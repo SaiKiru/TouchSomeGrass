@@ -17,6 +17,8 @@ import com.grassyass.touchsomegrass.data.models.User
 import com.grassyass.touchsomegrass.data.network.Authentication
 import com.grassyass.touchsomegrass.data.network.api.SessionsAPI
 import com.grassyass.touchsomegrass.data.network.api.UsersAPI
+import com.grassyass.touchsomegrass.fragments.dialogs.EditUsernameInputDialog
+import com.grassyass.touchsomegrass.fragments.dialogs.EditUsernameInputDialog.EditUsernameInputDialogListener
 import com.grassyass.touchsomegrass.views.BarGraph
 import java.util.*
 
@@ -27,6 +29,8 @@ class HomeFragment : Fragment() {
     private lateinit var userTitleLabel: TextView
     private lateinit var stepGraph: BarGraph
     private lateinit var logOutButton: ImageButton
+    private lateinit var editButton: ImageButton
+    private lateinit var user: User
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,16 +48,18 @@ class HomeFragment : Fragment() {
         userLevelLabel = view.findViewById(R.id.userLevelLabel)
         userTitleLabel = view.findViewById(R.id.userTitleLabel)
         logOutButton = view.findViewById(R.id.log_out_button)
+        editButton = view.findViewById(R.id.edit_button)
         stepGraph = view.findViewById<FrameLayout>(R.id.step_graph).findViewById(R.id.graph)
 
         logOutButton.setOnClickListener { onLogOutButtonPressed() }
+        editButton.setOnClickListener { onEditButtonPressed() }
 
         populateGraph()
 
         UsersAPI.getUser().addOnSuccessListener {
             it.ref.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val user = snapshot.getValue(User::class.java)!!
+                    user = snapshot.getValue(User::class.java)!!
 
                     userNameLabel.text = user.name
                     userLevelLabel.text = "Level ${user.getLvl()}"
@@ -71,6 +77,24 @@ class HomeFragment : Fragment() {
         val intent = Intent(context, LoginActivity::class.java)
         startActivity(intent)
         activity?.finish()
+    }
+
+    private fun onEditButtonPressed() {
+        val dialog = EditUsernameInputDialog()
+
+        dialog.setOnDialogButtonClickListener(object: EditUsernameInputDialogListener {
+            override fun onDialogPositiveClick(value: String) {
+                if (value.isBlank()) { return }
+
+                user.name = value
+
+                UsersAPI.updateUser(user)
+            }
+
+            override fun onDialogNegativeClick() { }
+        })
+
+        dialog.show(childFragmentManager, "edit_username_dialog")
     }
 
     private fun populateGraph() {

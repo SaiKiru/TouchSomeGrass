@@ -58,4 +58,8 @@ object UsersAPI {
             })
         }
     }
+
+    fun updateUser(user: User) {
+        Database.writeData("/users/$userUID", user)
+    }
 }
