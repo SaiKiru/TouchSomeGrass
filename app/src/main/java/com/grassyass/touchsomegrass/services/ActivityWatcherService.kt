@@ -17,9 +17,9 @@ class ActivityWatcherService : Service() {
     private lateinit var tracker: StepTracker
 
     override fun onCreate() {
-        super.onCreate()
-
         createPersistentNotification()
+
+        super.onCreate()
 
         val handler = Handler()
         val target = 100
@@ -50,8 +50,6 @@ class ActivityWatcherService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-
-        createPersistentNotification()
 
         return START_STICKY
     }

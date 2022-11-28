@@ -27,6 +27,8 @@ class AppWatcherService : Service() {
     private lateinit var appWatcherPoller: Runnable
 
     override fun onCreate() {
+        createPersistentNotification()
+
         super.onCreate()
 
         val launcherPackageName = packageManager.resolveActivity(
@@ -93,7 +95,6 @@ class AppWatcherService : Service() {
         super.onStartCommand(intent, flags, startId)
 
         whitelist = Whitelist.getAppList()
-        createPersistentNotification()
 
         return START_STICKY
     }
