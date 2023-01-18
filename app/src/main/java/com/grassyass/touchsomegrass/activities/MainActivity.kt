@@ -176,21 +176,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createNotificationChannel() {
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
         // Create the NotificationChannel
         val name = getString(R.string.tracker_channel_name)
         val descriptionText = getString(R.string.tracker_channel_description)
         val importance = NotificationManager.IMPORTANCE_LOW
         val mChannel = NotificationChannel(getString(R.string.tracker_channel_id), name, importance)
         mChannel.description = descriptionText
-
-        // Register the channel with the system
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(mChannel)
 
         // AppWatcher
-        val appWatcherNotificationChannel = NotificationChannel("AppWatcherNotification", "Touch Some Grass", NotificationManager.IMPORTANCE_LOW)
-        appWatcherNotificationChannel.description = "We are waiting for you to exercise"
-
+        val appWatcherNotificationChannel = NotificationChannel(
+            getString(R.string.app_watcher_channel_id),
+            getString(R.string.app_watcher_channel_name),
+            NotificationManager.IMPORTANCE_LOW
+        )
+        appWatcherNotificationChannel.description = getString(R.string.app_watcher_channel_description)
         notificationManager.createNotificationChannel(appWatcherNotificationChannel)
+
+        // Inactivity Warning
+        val inactivityWarningNotificationChannel = NotificationChannel(
+            getString(R.string.warning_channel_id),
+            getString(R.string.warning_channel_name),
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        inactivityWarningNotificationChannel.description = getString(R.string.warning_channel_id)
+        notificationManager.createNotificationChannel(inactivityWarningNotificationChannel)
     }
 }

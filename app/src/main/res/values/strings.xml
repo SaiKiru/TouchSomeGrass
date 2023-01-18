@@ -16,6 +16,14 @@
 
     <!-- Notification Channels -->
     <string name="tracker_channel_id">ActivityTrackerNotification</string>
-    <string name="tracker_channel_name">Touch Some Grass</string>
-    <string name="tracker_channel_description">App is recording your activity</string>
+    <string name="tracker_channel_name">Activity Tracker</string>
+    <string name="tracker_channel_description">Tracks the activity of the user</string>
+
+    <string name="app_watcher_channel_id">AppWatcherNotification</string>
+    <string name="app_watcher_channel_name">App Watcher</string>
+    <string name="app_watcher_channel_description">Tracks the apps opened by the user</string>
+
+    <string name="warning_channel_id">InactivityWarningNotification</string>
+    <string name="warning_channel_name">Inactivity Warning</string>
+    <string name="warning_channel_description">Warns the user if inactive for a long time</string>
 </resources>

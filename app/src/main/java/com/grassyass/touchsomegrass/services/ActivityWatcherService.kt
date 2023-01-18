@@ -1,5 +1,6 @@
 package com.grassyass.touchsomegrass.services
 
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.os.Handler
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.grassyass.touchsomegrass.R
+import com.grassyass.touchsomegrass.activities.AppLockActivity
 import com.grassyass.touchsomegrass.activities.MainActivity
 import com.grassyass.touchsomegrass.data.models.Session
 import com.grassyass.touchsomegrass.data.network.api.SessionsAPI
@@ -25,27 +27,39 @@ class ActivityWatcherService : Service() {
         val target = 100
         val millisecondsPerMinute = 60_000L
         val pollingPeriod = 45 * millisecondsPerMinute
+        val gracePeriod = 10 * millisecondsPerMinute
+        var state = "DEFAULT"
         tracker = StepTracker(applicationContext)
 
         tracker.start()
 
         handler.postDelayed(object : Runnable {
             override fun run() {
-                tracker.end()
-                recordSession()
-
-                if (tracker.data as Int <= target) {
-                    Intent(applicationContext, AppWatcherService::class.java).also { intent ->
-                        startService(intent)
+                if (state == "DEFAULT") {
+                    if (tracker.data as Int <= target) {
+                        showInactivityWarningNotification()
                     }
+
+                    state = "GRACE_PERIOD"
+                    handler.postDelayed(this, gracePeriod)
+                } else if (state == "GRACE_PERIOD") {
+                    tracker.end()
+                    recordSession()
+
+                    if (tracker.data as Int <= target) {
+                        Intent(applicationContext, AppWatcherService::class.java).also { intent ->
+                            startService(intent)
+                        }
+                    }
+
+                    tracker.reset()
+                    tracker.start()
+
+                    state = "DEFAULT"
+                    handler.postDelayed(this, pollingPeriod - gracePeriod)
                 }
-
-                tracker.reset()
-                tracker.start()
-
-                handler.postDelayed(this, pollingPeriod)
             }
-        }, pollingPeriod)
+        }, pollingPeriod - gracePeriod)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -69,6 +83,21 @@ class ActivityWatcherService : Service() {
             .setContentIntent(pendingIntent)
             .build()
         )
+    }
+
+    private fun showInactivityWarningNotification() {
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val intent = PendingIntent.getActivity(this, 3, Intent(Intent(this, AppLockActivity::class.java)), PendingIntent.FLAG_IMMUTABLE)
+
+        val notification = NotificationCompat.Builder(this, getString(R.string.warning_channel_id))
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("Inactivity warning")
+            .setContentText("You've been inactive for a while. Your phone will soon be locked")
+            .setContentIntent(intent)
+            .setAutoCancel(true)
+            .build()
+
+        notificationManager.notify(3, notification)
     }
 
     private fun recordSession() {
