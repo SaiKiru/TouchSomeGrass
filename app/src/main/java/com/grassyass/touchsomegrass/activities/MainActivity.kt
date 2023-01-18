@@ -26,6 +26,7 @@ import com.grassyass.touchsomegrass.fragments.dialogs.OverlayPermissionRequestDi
 import com.grassyass.touchsomegrass.fragments.HomeFragment
 import com.grassyass.touchsomegrass.fragments.SettingsFragment
 import com.grassyass.touchsomegrass.fragments.ExercisesFragment
+import com.grassyass.touchsomegrass.fragments.LeaderboardFragment
 import com.grassyass.touchsomegrass.fragments.dialogs.UsagePackageStatsPermissionRequestDialog
 import com.grassyass.touchsomegrass.fragments.dialogs.UsagePackageStatsPermissionRequestDialog.UsagePackageStatsPermissionRequestDialogListener
 import com.grassyass.touchsomegrass.services.ActivityWatcherService
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var homeScreen: Fragment
     private lateinit var exercisesScreen: Fragment
     private lateinit var profileScreen: Fragment
+    private lateinit var leaderboardScreen: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,13 +59,16 @@ class MainActivity : AppCompatActivity() {
         homeScreen = HomeFragment()
         exercisesScreen = ExercisesFragment()
         profileScreen = SettingsFragment()
+        leaderboardScreen = LeaderboardFragment()
 
         supportFragmentManager.beginTransaction().apply {
             add(R.id.fragment_switcher, homeScreen)
             add(R.id.fragment_switcher, exercisesScreen)
             add(R.id.fragment_switcher, profileScreen)
+            add(R.id.fragment_switcher, leaderboardScreen)
             hide(exercisesScreen)
             hide(profileScreen)
+            hide(leaderboardScreen)
         }.commit()
 
         bottomNavigation.setOnItemSelectedListener {
@@ -72,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         .hide(exercisesScreen)
                         .hide(profileScreen)
+                        .hide(leaderboardScreen)
                         .show(homeScreen)
                         .commit()
                     true
@@ -80,15 +86,26 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         .hide(homeScreen)
                         .hide(profileScreen)
+                        .hide(leaderboardScreen)
                         .show(exercisesScreen)
+                        .commit()
+                    true
+                }
+                R.id.nav_item_leaderboard_screen -> {
+                    supportFragmentManager.beginTransaction()
+                        .hide(homeScreen)
+                        .hide(exercisesScreen)
+                        .hide(profileScreen)
+                        .show(leaderboardScreen)
                         .commit()
                     true
                 }
                 R.id.nav_item_profile_screen -> {
                     supportFragmentManager.beginTransaction()
-                        .show(profileScreen)
                         .hide(homeScreen)
                         .hide(exercisesScreen)
+                        .hide(leaderboardScreen)
+                        .show(profileScreen)
                         .commit()
                     true
                 }

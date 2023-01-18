@@ -19,7 +19,6 @@ import com.grassyass.touchsomegrass.adapters.ExerciseListAdapter
 import com.grassyass.touchsomegrass.data.models.Exercise
 import com.grassyass.touchsomegrass.data.network.api.ExercisesAPI
 
-
 class ExercisesFragment : Fragment() {
     private lateinit var exerciseList: RecyclerView
     private lateinit var fab: FloatingActionButton

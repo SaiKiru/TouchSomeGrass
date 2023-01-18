@@ -10,6 +10,11 @@
         android:icon="@drawable/ic_shoe_prints"
         android:title="Exercises" />
     <item
+        android:id="@+id/nav_item_leaderboard_screen"
+        android:enabled="true"
+        android:icon="@drawable/ic_leaderboard"
+        android:title="Leaderboard" />
+    <item
         android:id="@+id/nav_item_profile_screen"
         android:enabled="true"
         android:icon="@drawable/ic_cog"

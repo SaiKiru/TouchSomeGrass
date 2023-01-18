@@ -12,6 +12,13 @@ data class User(
     var birthDate: Long? = null,
 ) : Serializable {
 
+    private var _id: String = ""
+
+    var id: String
+        @Exclude
+        get() { return _id }
+        set(value) { _id = value}
+
     fun addExp(amount: Double) {
         exp = exp?.plus(amount)
     }
