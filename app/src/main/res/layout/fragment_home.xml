@@ -116,9 +116,73 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/archivo_semibold"
-                android:text="Your steps for the week"
+                android:text="Your steps"
                 android:textColor="@color/primary_700"
                 android:textSize="24sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <Button
+                    android:id="@+id/weeklyStatsButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/primary_400"
+                    android:text="Weekly"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/monthlyStatsButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:text="Monthly"
+                    android:textColor="@color/primary_400" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/previousTimeSpanButton"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:src="@drawable/ic_angle_left"
+                    app:tint="@color/neutral_600" />
+
+                <TextView
+                    android:id="@+id/timeSpanLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="loading time..."
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <ImageButton
+                    android:id="@+id/nextTimeSpanButton"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:src="@drawable/ic_angle_right"
+                    app:tint="@color/neutral_600" />
+            </LinearLayout>
 
             <include
                 android:id="@+id/step_graph"
