@@ -10,6 +10,7 @@ data class User(
     var name: String? = "",
     var exp: Double? = 0.0,
     var birthDate: Long? = null,
+    var friends: ArrayList<String>? = arrayListOf()
 ) : Serializable {
 
     private var _id: String = ""

@@ -43,6 +43,10 @@ object UsersAPI {
         return Database.readData("/users/$userUID")
     }
 
+    fun getUsers(): Task<DataSnapshot> {
+        return Database.readData("/users")
+    }
+
     fun addExp(amount: Double) {
         getUser().addOnSuccessListener {
             it.ref.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -52,6 +56,31 @@ object UsersAPI {
                     user.addExp(amount)
 
                     Database.writeData("/users/${userUID}/exp", user.exp!!)
+                }
+
+                override fun onCancelled(error: DatabaseError) { }
+            })
+        }
+    }
+
+    fun addFriend(friendID: String) {
+        getUser().addOnSuccessListener {
+            it.ref.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val user = snapshot.getValue(User::class.java)!!
+                    val friends =
+                        (if (user.friends.isNullOrEmpty()) {
+                            arrayListOf()
+                        } else {
+                            user.friends!!
+                        })
+
+                    if (friendID in friends) return
+
+                    friends.add(friendID)
+                    user.friends = friends
+
+                    updateUser(user)
                 }
 
                 override fun onCancelled(error: DatabaseError) { }
