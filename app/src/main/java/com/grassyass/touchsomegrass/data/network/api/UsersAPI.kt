@@ -12,7 +12,7 @@ import com.grassyass.touchsomegrass.data.network.Database
 object UsersAPI {
     private val userUID: String? = Authentication.getCurrentUser()?.uid
 
-    fun addUser(user: User) {
+    fun addUser(user: User): Task<Void> {
         val defaultExercise = Exercise(
             Exercise.ExerciseType.StepExercise,
             "Walking",
@@ -24,7 +24,7 @@ object UsersAPI {
             "/exercises/$userUID/_default" to defaultExercise
         )
 
-        Database.updateChildren(updates)
+        return Database.updateChildren(updates)
     }
 
     fun deleteUser() {

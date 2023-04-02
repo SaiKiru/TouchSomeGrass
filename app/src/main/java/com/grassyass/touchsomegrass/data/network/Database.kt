@@ -24,8 +24,8 @@ object Database {
         return writeData("$path/$key", data)
     }
 
-    fun updateChildren(updates: Map<String, Any>) {
-        dbRef.updateChildren(updates)
+    fun updateChildren(updates: Map<String, Any>): Task<Void> {
+        return dbRef.updateChildren(updates)
     }
 
     fun readData(path: String): Task<DataSnapshot> {

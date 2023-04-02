@@ -73,7 +73,11 @@ class SignUpActivity : AppCompatActivity() {
 
         Authentication.createAccount(email, password, {
             val user = User(username, 0.0)
-            UsersAPI.addUser(user)
+            UsersAPI
+                .addUser(user)
+                .addOnFailureListener {
+                    navigateToLoginScreen()
+                }
 
             navigateToHome()
         }, {

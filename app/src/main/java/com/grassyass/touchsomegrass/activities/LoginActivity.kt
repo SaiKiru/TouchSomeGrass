@@ -10,8 +10,13 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.grassyass.touchsomegrass.R
+import com.grassyass.touchsomegrass.data.models.User
 import com.grassyass.touchsomegrass.data.network.Authentication
+import com.grassyass.touchsomegrass.data.network.api.UsersAPI
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var emailInputField: EditText
@@ -58,7 +63,22 @@ class LoginActivity : AppCompatActivity() {
         }
 
         Authentication.signIn(email, password, {
-            navigateToHome()
+            UsersAPI.getUser().addOnSuccessListener {
+                it.ref.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            navigateToHome()
+                        } else {
+                            val user = User("Anonymous", 0.0)
+                            UsersAPI.addUser(user).addOnSuccessListener {
+                                navigateToHome()
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) { }
+                })
+            }
         }, {
             Toast.makeText(this, "Could not sign in. Check your email and password, or try again later", Toast.LENGTH_LONG).show()
         })
