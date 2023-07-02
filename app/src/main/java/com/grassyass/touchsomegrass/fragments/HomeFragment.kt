@@ -19,7 +19,7 @@ import com.grassyass.touchsomegrass.data.network.api.SessionsAPI
 import com.grassyass.touchsomegrass.data.network.api.UsersAPI
 import com.grassyass.touchsomegrass.fragments.dialogs.EditUsernameInputDialog
 import com.grassyass.touchsomegrass.fragments.dialogs.EditUsernameInputDialog.EditUsernameInputDialogListener
-import com.grassyass.touchsomegrass.views.BarGraph
+import com.grassyass.touchsomegrass.fragments.stats.BarGraph.BarGraphFragment
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
     private lateinit var userNameLabel: TextView
     private lateinit var userLevelLabel: TextView
     private lateinit var userTitleLabel: TextView
-    private lateinit var stepGraph: BarGraph
+    private lateinit var stepGraph: BarGraphFragment
     private lateinit var logOutButton: ImageButton
     private lateinit var editButton: ImageButton
     private lateinit var weeklyStatsButton: Button
@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
         timeSpanLabel = view.findViewById(R.id.timeSpanLabel)
         previousTimeSpanButton = view.findViewById(R.id.previousTimeSpanButton)
         nextTimeSpanButton = view.findViewById(R.id.nextTimeSpanButton)
-        stepGraph = view.findViewById<FrameLayout>(R.id.step_graph).findViewById(R.id.graph)
+        stepGraph = childFragmentManager.findFragmentById(R.id.step_graph) as BarGraphFragment
 
         weeklyStatsButton.setOnClickListener { onWeeklyStatsButtonPressed() }
         monthlyStatsButton.setOnClickListener { onMonthlyStatsButtonPressed() }
@@ -223,7 +223,7 @@ class HomeFragment : Fragment() {
                 .endAt(endTime)
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        val aggregate: ArrayList<Any> =
+                        val aggregate: ArrayList<Number> =
                             if (span == "WEEK") {
                                 arrayListOf(0, 0, 0, 0, 0, 0, 0)
                             } else {

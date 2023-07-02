@@ -184,14 +184,12 @@
                     app:tint="@color/neutral_600" />
             </LinearLayout>
 
-            <include
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/step_graph"
-                layout="@layout/view_bar_graph"
+                android:name="com.grassyass.touchsomegrass.fragments.stats.BarGraph.BarGraphFragment"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp" />
 
         </LinearLayout>
 
