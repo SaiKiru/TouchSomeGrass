@@ -36,6 +36,8 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     private var exerciseList: ArrayList<Exercise> = arrayListOf()
     private var exerciseNamesList: ArrayList<String> = arrayListOf()
 
+    private var isCasual = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app_lock)
@@ -47,20 +49,30 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         sessionControllerButton = findViewById(R.id.session_controller_button)
         exerciseListSpinner = findViewById(R.id.exercise_list_spinner)
 
+        isCasual = intent.getBooleanExtra("isCasual", false)
+
         populateExerciseListSpinner()
 
         sessionControllerButton.setOnClickListener {
-            disableSessionController()
+            if (!isCasual) {
+                disableSessionController()
+            } else {
+                disableSessionControllerCasual()
+            }
             startSession()
         }
     }
 
     override fun onBackPressed() {
-        Intent(Intent.ACTION_MAIN).also {
-            it.addCategory(Intent.CATEGORY_HOME)
-            it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        if (!isCasual) {
+            Intent(Intent.ACTION_MAIN).also {
+                it.addCategory(Intent.CATEGORY_HOME)
+                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
-            startActivity(it)
+                startActivity(it)
+            }
+        } else {
+            super.onBackPressed()
         }
     }
 
@@ -256,6 +268,25 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         statusText.alpha = 0.3f
         targetLabel.alpha = 0.5f
         sessionControllerButton.alpha = 0.3f
+
+        // hide exercise changer and disable changing exercises
+        exerciseListSpinner.alpha = 0.0f
+        exerciseListSpinner.isEnabled = false
+        findViewById<TextView>(R.id.change_exercise_label).alpha = 0.0f
+    }
+
+    private fun disableSessionControllerCasual() {
+        // Do not disable session controller
+        sessionControllerButton.text = "Stop Exercise"
+//        sessionControllerButton.isEnabled = false
+
+        // mute less important data
+        statusText.alpha = 0.3f
+        targetLabel.alpha = 0.5f
+//        sessionControllerButton.alpha = 0.3f
+        sessionControllerButton.setOnClickListener {
+            endSession()
+        }
 
         // hide exercise changer and disable changing exercises
         exerciseListSpinner.alpha = 0.0f

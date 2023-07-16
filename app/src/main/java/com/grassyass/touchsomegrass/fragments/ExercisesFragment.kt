@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.grassyass.touchsomegrass.R
+import com.grassyass.touchsomegrass.activities.AppLockActivity
 import com.grassyass.touchsomegrass.activities.NewExerciseActivity
 import com.grassyass.touchsomegrass.adapters.ExerciseListAdapter
 import com.grassyass.touchsomegrass.data.models.Exercise
@@ -22,6 +24,7 @@ import com.grassyass.touchsomegrass.data.network.api.ExercisesAPI
 class ExercisesFragment : Fragment() {
     private lateinit var exerciseList: RecyclerView
     private lateinit var fab: FloatingActionButton
+    private lateinit var initiateExerciseBtn: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +38,7 @@ class ExercisesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fab = view.findViewById(R.id.fab)
+        initiateExerciseBtn = view.findViewById(R.id.initiate_exercise_btn)
         exerciseList = view.findViewById(R.id.exercise_list)
         exerciseList.setHasFixedSize(true)
 
@@ -74,6 +78,13 @@ class ExercisesFragment : Fragment() {
             val intent = Intent(view.context, NewExerciseActivity::class.java)
 
             createExercise.launch(intent)
+        }
+
+        initiateExerciseBtn.setOnClickListener {
+            Intent(view.context, AppLockActivity::class.java).also {
+                it.putExtra("isCasual", true)
+                startActivity(it)
+            }
         }
     }
 }
