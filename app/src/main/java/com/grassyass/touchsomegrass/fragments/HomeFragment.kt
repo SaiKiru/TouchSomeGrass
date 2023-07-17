@@ -11,6 +11,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.grassyass.touchsomegrass.R
+import com.grassyass.touchsomegrass.activities.ExpHelpActivity
 import com.grassyass.touchsomegrass.activities.LoginActivity
 import com.grassyass.touchsomegrass.data.models.Session
 import com.grassyass.touchsomegrass.data.models.User
@@ -36,6 +37,7 @@ class HomeFragment : Fragment() {
     private lateinit var previousTimeSpanButton: ImageButton
     private lateinit var nextTimeSpanButton: ImageButton
     private lateinit var user: User
+    private lateinit var expHelpButton: ImageButton
 
     private var overallStatsTimeRange: String = "WEEK"
     private var overallStatsTimePointer: Int = 0
@@ -63,6 +65,7 @@ class HomeFragment : Fragment() {
         previousTimeSpanButton = view.findViewById(R.id.previousTimeSpanButton)
         nextTimeSpanButton = view.findViewById(R.id.nextTimeSpanButton)
         stepGraph = childFragmentManager.findFragmentById(R.id.step_graph) as BarGraphFragment
+        expHelpButton = view.findViewById(R.id.exp_help_btn)
 
         weeklyStatsButton.setOnClickListener { onWeeklyStatsButtonPressed() }
         monthlyStatsButton.setOnClickListener { onMonthlyStatsButtonPressed() }
@@ -70,6 +73,12 @@ class HomeFragment : Fragment() {
         nextTimeSpanButton.setOnClickListener { onNextTimeSpanButtonPressed() }
         logOutButton.setOnClickListener { onLogOutButtonPressed() }
         editButton.setOnClickListener { onEditButtonPressed() }
+
+        expHelpButton.setOnClickListener {
+            Intent(context, ExpHelpActivity::class.java).also {
+                startActivity(it)
+            }
+        }
 
         updateTimeLabel()
         populateGraph()
