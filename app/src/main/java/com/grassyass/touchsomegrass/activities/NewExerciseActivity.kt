@@ -57,6 +57,18 @@ class NewExerciseActivity : AppCompatActivity() {
             }
         }
 
+        if (exerciseType == Exercise.ExerciseType.StepExercise
+            && target < 100
+        ) {
+            Toast.makeText(this, "Too few! Minimum is 100 steps!", Toast.LENGTH_SHORT).show()
+            return
+        } else if (exerciseType == Exercise.ExerciseType.DurationExercise
+            && target < 5L
+        ) {
+            Toast.makeText(this, "Too short! Minimum time is 5 minutes!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val exercise = Exercise(exerciseType, exerciseName)
         exercise.target = target
 
