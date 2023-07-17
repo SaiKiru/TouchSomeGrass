@@ -7,6 +7,31 @@
     android:background="@color/primary_700"
     tools:context=".activities.AppLockActivity">
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gif"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/iilus_exercising_man"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+    <FrameLayout
+        android:id="@+id/shader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary_700"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
     <TextView
         android:id="@+id/status_text"
         android:layout_width="wrap_content"

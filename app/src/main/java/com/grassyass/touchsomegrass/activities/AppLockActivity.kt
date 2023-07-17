@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.Spinner
 import android.widget.TextView
 import com.google.firebase.database.DataSnapshot
@@ -33,6 +34,7 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     private lateinit var exerciseListSpinner: Spinner
     private lateinit var activeExercise: Exercise
     private lateinit var tracker: Tracker
+    private lateinit var shader: FrameLayout
     private var exerciseList: ArrayList<Exercise> = arrayListOf()
     private var exerciseNamesList: ArrayList<String> = arrayListOf()
 
@@ -48,12 +50,15 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         targetLabel = findViewById(R.id.target_label)
         sessionControllerButton = findViewById(R.id.session_controller_button)
         exerciseListSpinner = findViewById(R.id.exercise_list_spinner)
+        shader = findViewById(R.id.shader)
 
         isCasual = intent.getBooleanExtra("isCasual", false)
 
         populateExerciseListSpinner()
 
         sessionControllerButton.setOnClickListener {
+            shader.alpha = 0.5f
+
             if (!isCasual) {
                 disableSessionController()
             } else {
@@ -251,6 +256,7 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
         // set session controller to end session on click
         sessionControllerButton.setOnClickListener {
+            shader.alpha = 1.0f
             endSession()
         }
 
@@ -278,13 +284,12 @@ class AppLockActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     private fun disableSessionControllerCasual() {
         // Do not disable session controller
         sessionControllerButton.text = "Stop Exercise"
-//        sessionControllerButton.isEnabled = false
 
         // mute less important data
         statusText.alpha = 0.3f
         targetLabel.alpha = 0.5f
-//        sessionControllerButton.alpha = 0.3f
         sessionControllerButton.setOnClickListener {
+            shader.alpha = 1.0f
             endSession()
         }
 
