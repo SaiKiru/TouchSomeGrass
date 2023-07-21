@@ -197,9 +197,8 @@
                     app:tint="@color/neutral_600" />
             </LinearLayout>
 
-            <androidx.fragment.app.FragmentContainerView
+            <FrameLayout
                 android:id="@+id/step_graph"
-                android:name="com.grassyass.touchsomegrass.fragments.stats.BarGraph.BarGraphFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp" />

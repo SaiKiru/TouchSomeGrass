@@ -38,6 +38,7 @@ class HomeFragment : Fragment() {
     private lateinit var nextTimeSpanButton: ImageButton
     private lateinit var user: User
     private lateinit var expHelpButton: ImageButton
+    private lateinit var stepGraphContainer: FrameLayout
 
     private var overallStatsTimeRange: String = "WEEK"
     private var overallStatsTimePointer: Int = 0
@@ -64,7 +65,8 @@ class HomeFragment : Fragment() {
         timeSpanLabel = view.findViewById(R.id.timeSpanLabel)
         previousTimeSpanButton = view.findViewById(R.id.previousTimeSpanButton)
         nextTimeSpanButton = view.findViewById(R.id.nextTimeSpanButton)
-        stepGraph = childFragmentManager.findFragmentById(R.id.step_graph) as BarGraphFragment
+        stepGraphContainer = view.findViewById(R.id.step_graph)
+        stepGraph = BarGraphFragment()
         expHelpButton = view.findViewById(R.id.exp_help_btn)
 
         weeklyStatsButton.setOnClickListener { onWeeklyStatsButtonPressed() }
@@ -73,6 +75,11 @@ class HomeFragment : Fragment() {
         nextTimeSpanButton.setOnClickListener { onNextTimeSpanButtonPressed() }
         logOutButton.setOnClickListener { onLogOutButtonPressed() }
         editButton.setOnClickListener { onEditButtonPressed() }
+
+        childFragmentManager.beginTransaction().apply {
+            replace(stepGraphContainer.id, stepGraph)
+            commitAllowingStateLoss()
+        }
 
         expHelpButton.setOnClickListener {
             Intent(context, ExpHelpActivity::class.java).also {

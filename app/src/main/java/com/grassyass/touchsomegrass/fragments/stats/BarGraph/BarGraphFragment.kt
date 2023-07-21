@@ -60,7 +60,7 @@ class BarGraphFragment : Fragment() {
 
         val transaction = parentFragmentManager.beginTransaction()
         transaction.add(fragmentContainer.id, barLabel)
-        transaction.commit()
+        transaction.commitAllowingStateLoss()
 
         fragmentContainer.layoutParams = layoutParams
         barLabelsCL.addView(fragmentContainer)
@@ -140,7 +140,7 @@ class BarGraphFragment : Fragment() {
             transaction.add(barsLL.id, bar)
         }
 
-        transaction.commit()
+        transaction.commitAllowingStateLoss()
     }
 
     private fun createLabels(labels: ArrayList<String>) {
